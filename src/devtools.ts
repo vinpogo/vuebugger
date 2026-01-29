@@ -112,13 +112,14 @@ export function setupComposableDevtools<T>(app: App<T>) {
     {
       id: 'composables-debugger',
       label: 'Composables',
+      logo: 'https://raw.githubusercontent.com/vinpogo/vuebugger/main/logo.png',
       app,
     },
     (api) => {
       api.addInspector({
         id: INSPECTOR_ID,
         label: 'Vuebugger',
-        icon: 'pest_control',
+        icon: 'https://raw.githubusercontent.com/vinpogo/vuebugger/main/logo.png',
         treeFilterPlaceholder:
           'Search by composable or component name...',
       })
