@@ -1,0 +1,39 @@
+{
+  "name": "vue-composable-devtools",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "vingy",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "test": "vitest",
+    "build": "tsdown",
+    "dev": "tsdown -w"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "@vue/devtools-api": "^8.0.5",
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
+    "tsdown": "^0.20.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

@@ -1,0 +1,16 @@
+[tools]
+node = "24"
+
+[hooks]
+postinstall = "npx corepack enable"
+
+[settings]
+experimental = true
+
+[tasks]
+build = "pnpm build"
+dev = "pnpm dev"
+test = "pnpm test"
+oxlint = "pnpm oxlint src"
+oxfmt = "pnpm oxfmt --check src"
+
