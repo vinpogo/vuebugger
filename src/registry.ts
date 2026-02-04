@@ -10,17 +10,14 @@ export const byGroupId = new Map<
   Set<VuebuggerEntry['uid']>
 >()
 
-const callbacks: ((
-  componentInstance: VuebuggerEntry['componentInstance'],
-) => void)[] = []
-const runCallbacks = (
-  componentInstance: VuebuggerEntry['componentInstance'],
-) => callbacks.forEach((cb) => cb(componentInstance))
+const callbacks: ((entry: VuebuggerEntry) => void)[] = []
+const runCallbacks = (entry: VuebuggerEntry) =>
+  callbacks.forEach((cb) => cb(entry))
 const withCallbacks =
   (fn: (entry: VuebuggerEntry) => void) =>
   (entry: VuebuggerEntry) => {
     fn(entry)
-    runCallbacks(entry.componentInstance)
+    runCallbacks(entry)
   }
 
 export const upsert = withCallbacks(
@@ -44,9 +41,7 @@ export const remove = withCallbacks(
 )
 
 export const onUpdate = (
-  fn: (
-    componentInstance: VuebuggerEntry['componentInstance'],
-  ) => void,
+  fn: (entry: VuebuggerEntry) => void,
 ) => {
   callbacks.push(fn)
 }

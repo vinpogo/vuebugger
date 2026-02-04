@@ -8,7 +8,8 @@ import type {
   VuebuggerEntry,
 } from './types'
 
-const INSPECTOR_ID = 'composables'
+const INSPECTOR_ID = 'vuebugger-inspector'
+const TIMELINE_ID = 'vuebugger-timeline'
 
 export const handleGetInspectorTree: DevtoolsApiHandler<
   'getInspectorTree'
@@ -123,16 +124,26 @@ export function setupComposableDevtools<T>(app: App<T>) {
         treeFilterPlaceholder:
           'Search by composable or component name...',
       })
+      api.addTimelineLayer({
+        id: TIMELINE_ID,
+        label: 'Vuebugger',
+        color: 155,
+      })
 
-      onUpdate(
-        (
-          componentInstance: VuebuggerEntry['componentInstance'],
-        ) => {
-          api.sendInspectorTree(INSPECTOR_ID)
-          api.sendInspectorState(INSPECTOR_ID)
-          api.notifyComponentUpdate(componentInstance)
-        },
-      )
+      onUpdate((entry: VuebuggerEntry) => {
+        api.sendInspectorTree(INSPECTOR_ID)
+        api.sendInspectorState(INSPECTOR_ID)
+        api.notifyComponentUpdate(entry.componentInstance)
+        api.addTimelineEvent({
+          layerId: TIMELINE_ID,
+          event: {
+            time: api.now(),
+            data: entry,
+            title: `${entry.uid} state change`,
+            groupId: entry.uid,
+          },
+        })
+      })
 
       api.on.getInspectorTree(handleGetInspectorTree)
       api.on.getInspectorState(handleGetInspectorState(api))
