@@ -1,7 +1,8 @@
 import { beforeEach, expect, test, vi } from 'vitest'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { INSPECTOR_ID } from './constants'
 import {
+  handleEditInspectorState,
   handleGetInspectorState,
   handleGetInspectorTree,
   handleInspectComponent,
@@ -169,7 +170,23 @@ test('getInspectorState for individual entry', () => {
         {
           "editable": true,
           "key": "foo",
-          "value": "bar",
+          "value": RefImpl {
+            "__v_isRef": true,
+            "__v_isShallow": false,
+            "_rawValue": "bar",
+            "_value": "bar",
+            "dep": Dep {
+              "__v_skip": true,
+              "activeLink": undefined,
+              "computed": undefined,
+              "key": undefined,
+              "map": undefined,
+              "sc": 0,
+              "subs": undefined,
+              "subsHead": undefined,
+              "version": 0,
+            },
+          },
         },
       ],
     }
@@ -263,4 +280,69 @@ test('inspectComponent adds state to payload', () => {
       },
     ]
   `)
+})
+
+test('editInspectorState for existent entry', () => {
+  const debugState = { value: computed(() => 23) }
+  upsert({
+    groupId: 'groupid',
+    uid: 'uid',
+    componentName: 'Foo',
+    componentInstance: null,
+    debugState,
+  })
+
+  const setMock = vi.fn()
+
+  const payload: DevtoolsApiHandlerPayload<'editInspectorState'> =
+    {
+      app: {},
+      inspectorId: INSPECTOR_ID,
+      nodeId: 'uid',
+      path: [],
+      type: '',
+      state: {
+        value: 'yess',
+        newKey: undefined,
+        remove: undefined,
+      },
+      set: setMock,
+    }
+
+  handleEditInspectorState(payload)
+
+  expect(setMock).toHaveBeenCalledExactlyOnceWith(
+    debugState,
+  )
+})
+
+test('editInspectorState for non-existent entry', () => {
+  upsert({
+    groupId: 'groupid',
+    uid: 'uid',
+    componentName: 'Foo',
+    componentInstance: null,
+    debugState: { value: computed(() => 23) },
+  })
+
+  const setMock = vi.fn()
+
+  const payload: DevtoolsApiHandlerPayload<'editInspectorState'> =
+    {
+      app: {},
+      inspectorId: INSPECTOR_ID,
+      nodeId: 'rando',
+      path: [],
+      type: '',
+      state: {
+        value: 'yess',
+        newKey: undefined,
+        remove: undefined,
+      },
+      set: setMock,
+    }
+
+  handleEditInspectorState(payload)
+
+  expect(setMock).not.toHaveBeenCalled()
 })

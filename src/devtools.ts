@@ -1,6 +1,6 @@
 import { setupDevToolsPlugin } from '@vue/devtools-api'
 import type { App } from 'vue'
-import { toValue } from 'vue'
+import { isReadonly, toValue } from 'vue'
 import { INSPECTOR_ID, TIMELINE_ID } from './constants'
 import { byGroupId, byUid, onUpdate } from './registry'
 import type {
@@ -71,8 +71,8 @@ export const handleGetInspectorState =
             entry.debugState,
           ).map(([key, value]) => ({
             key,
-            value: toValue(value),
-            editable: true,
+            value,
+            editable: !isReadonly(value),
           })),
         }
         if (entry.componentInstance)
@@ -96,13 +96,24 @@ export const handleInspectComponent: DevtoolsApiHandler<
         ([key, value]) => ({
           type: entry.uid,
           key,
-          value: toValue(value),
-          editable: true,
+          value,
+          editable: !isReadonly(value),
         }),
       )
     })
     .toArray()
   payload.instanceData.state.push(...entries)
+}
+
+export const handleEditInspectorState: DevtoolsApiHandler<
+  'editInspectorState'
+> = (payload) => {
+  if (payload.inspectorId === INSPECTOR_ID) {
+    const uid = payload.nodeId
+    const entry = byUid.get(uid)
+    if (!entry) return
+    payload.set(entry.debugState)
+  }
 }
 
 export function setupComposableDevtools<T>(app: App<T>) {
@@ -146,6 +157,7 @@ export function setupComposableDevtools<T>(app: App<T>) {
       api.on.getInspectorTree(handleGetInspectorTree)
       api.on.getInspectorState(handleGetInspectorState(api))
       api.on.inspectComponent(handleInspectComponent)
+      api.on.editInspectorState(handleEditInspectorState)
     },
   )
 }
