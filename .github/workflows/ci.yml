@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: [oxlint, oxfmt, build]
+        task: [oxlint, oxfmt, build, test]
     steps:
       - uses: actions/checkout@v4
 
