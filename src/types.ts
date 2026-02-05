@@ -15,8 +15,6 @@ export type DevtoolsApi = Parameters<
 export type HandlerNames = keyof DevtoolsApi['on']
 export type DevtoolsApiHandler<T extends HandlerNames> =
   Parameters<DevtoolsApi['on'][T]>['0']
-export type TreeNode = {
-  id: string
-  label: string
-  children?: TreeNode[]
-}
+export type DevtoolsApiHandlerPayload<
+  T extends HandlerNames,
+> = Parameters<DevtoolsApiHandler<T>>[0]

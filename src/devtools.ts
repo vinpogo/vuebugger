@@ -1,15 +1,13 @@
 import { setupDevToolsPlugin } from '@vue/devtools-api'
 import type { App } from 'vue'
 import { toValue } from 'vue'
+import { INSPECTOR_ID, TIMELINE_ID } from './constants'
 import { byGroupId, byUid, onUpdate } from './registry'
 import type {
   DevtoolsApi,
   DevtoolsApiHandler,
   VuebuggerEntry,
 } from './types'
-
-const INSPECTOR_ID = 'vuebugger-inspector'
-const TIMELINE_ID = 'vuebugger-timeline'
 
 export const handleGetInspectorTree: DevtoolsApiHandler<
   'getInspectorTree'
