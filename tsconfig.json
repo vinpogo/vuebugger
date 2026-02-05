@@ -11,9 +11,12 @@
     "types": ["node"],
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "dist",
-    "rootDir": "./src"
+    "outDir": "dist"
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "vitest.config.ts",
+    "tsdown.config.ts"
+  ],
   "exclude": ["demo"]
 }
