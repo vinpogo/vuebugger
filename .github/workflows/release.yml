@@ -5,7 +5,6 @@ on:
 
 permissions:
   contents: write
-  id-token: write
 
 jobs:
   release:
@@ -17,19 +16,3 @@ jobs:
         with:
           generate_release_notes: true
           draft: true
-
-  publish:
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: jdx/mise-action@v2
-
-      - run: mise run install --frozen-lockfile
-
-      - run: mise run build
-
-      - run: pnpm publish --no-git-checks
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
