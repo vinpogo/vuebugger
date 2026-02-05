@@ -1,12 +1,16 @@
 import { beforeEach, expect, test, vi } from 'vitest'
 import { ref } from 'vue'
+import { INSPECTOR_ID } from './constants'
 import {
   handleGetInspectorState,
   handleGetInspectorTree,
   handleInspectComponent,
 } from './devtools'
 import { byGroupId, byUid, upsert } from './registry'
-import { DevtoolsApi } from './types'
+import {
+  DevtoolsApi,
+  DevtoolsApiHandlerPayload,
+} from './types'
 
 beforeEach(() => {
   vi.clearAllMocks()
@@ -37,12 +41,13 @@ test('getInspectorTree filters by groupId', () => {
     debugState: {},
   })
 
-  const payload = {
-    app: {},
-    inspectorId: 'composables',
-    filter: 'Component1',
-    rootNodes: [],
-  }
+  const payload: DevtoolsApiHandlerPayload<'getInspectorTree'> =
+    {
+      app: {},
+      inspectorId: INSPECTOR_ID,
+      filter: 'Component1',
+      rootNodes: [],
+    }
   handleGetInspectorTree(payload)
 
   expect(payload.rootNodes).toMatchInlineSnapshot(`
@@ -88,12 +93,13 @@ test('getInspectorTree filters by uid', () => {
     debugState: {},
   })
 
-  const payload = {
-    app: {},
-    inspectorId: 'composables',
-    filter: 'state1',
-    rootNodes: [],
-  }
+  const payload: DevtoolsApiHandlerPayload<'getInspectorTree'> =
+    {
+      app: {},
+      inspectorId: INSPECTOR_ID,
+      filter: 'state1',
+      rootNodes: [],
+    }
   handleGetInspectorTree(payload)
 
   expect(payload.rootNodes).toMatchInlineSnapshot(`
@@ -138,12 +144,13 @@ test('getInspectorState for individual entry', () => {
 
   upsert(mockEntry)
 
-  const payload = {
-    app: {},
-    inspectorId: 'composables',
-    nodeId: 'test-uid',
-    state: {},
-  }
+  const payload: DevtoolsApiHandlerPayload<'getInspectorState'> =
+    {
+      app: {},
+      inspectorId: INSPECTOR_ID,
+      nodeId: 'test-uid',
+      state: {},
+    }
   handleGetInspectorState(mockApi)(payload)
 
   expect(payload.state).toMatchInlineSnapshot(`
@@ -193,12 +200,13 @@ test('getInspectorState for group entry', () => {
   upsert(mockEntry1)
   upsert(mockEntry2)
 
-  const payload = {
-    app: {},
-    inspectorId: 'composables',
-    nodeId: 'TestGroup',
-    state: {},
-  }
+  const payload: DevtoolsApiHandlerPayload<'getInspectorState'> =
+    {
+      app: {},
+      inspectorId: INSPECTOR_ID,
+      nodeId: 'TestGroup',
+      state: {},
+    }
   handleGetInspectorState(mockApi)(payload)
 
   expect(payload.state).toMatchInlineSnapshot(`
@@ -232,16 +240,17 @@ test('inspectComponent adds state to payload', () => {
 
   upsert(mockEntry)
 
-  const payload = {
-    app: {},
-    componentInstance,
-    instanceData: {
-      id: '',
-      name: '',
-      file: '',
-      state: [],
-    },
-  }
+  const payload: DevtoolsApiHandlerPayload<'inspectComponent'> =
+    {
+      app: {},
+      componentInstance,
+      instanceData: {
+        id: '',
+        name: '',
+        file: '',
+        state: [],
+      },
+    }
   handleInspectComponent(payload)
 
   expect(payload.instanceData.state).toMatchInlineSnapshot(`
