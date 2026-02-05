@@ -16,6 +16,7 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           generate_release_notes: true
+          draft: true
 
   publish:
     needs: release
