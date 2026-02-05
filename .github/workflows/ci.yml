@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: [oxlint, oxfmt, build, test]
+        task: [oxlint, oxfmt, build, test:ci]
     steps:
       - uses: actions/checkout@v4
 
@@ -25,3 +25,10 @@ jobs:
       - run: mise run install --frozen-lockfile
 
       - run: mise run ${{ matrix.task }}
+
+      - name: Upload coverage artifacts
+        if: matrix.task == 'test:ci'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage

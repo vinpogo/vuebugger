@@ -8,6 +8,7 @@ postinstall = "npx corepack enable"
 experimental = true
 
 [tasks]
+"test:ci" = "pnpm test:ci"
 install = "pnpm install"
 build = "pnpm build"
 dev = "pnpm dev"

@@ -35,11 +35,13 @@
   },
   "scripts": {
     "test": "vitest",
+    "test:ci": "vitest run --coverage",
     "build": "tsdown",
     "dev": "tsdown -w"
   },
   "devDependencies": {
     "@types/node": "^25.0.10",
+    "@vitest/coverage-v8": "4.0.18",
     "@vue/devtools-api": "^8.0.5",
     "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
