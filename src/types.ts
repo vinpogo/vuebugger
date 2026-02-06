@@ -18,3 +18,5 @@ export type DevtoolsApiHandler<T extends HandlerNames> =
 export type DevtoolsApiHandlerPayload<
   T extends HandlerNames,
 > = Parameters<DevtoolsApiHandler<T>>[0]
+
+export type PluginOptions = { uidFn?: () => string }

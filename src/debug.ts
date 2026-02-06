@@ -8,10 +8,15 @@ import {
 import { remove, upsert } from './registry'
 import type { VuebuggerEntry } from './types'
 
-export function debug<T extends Record<string, any>>(
+let getUid = () => Math.random().toString(36).slice(2, 9)
+export const setUidGenerator = (fn: () => string) => {
+  getUid = fn
+}
+
+export const debug = <T extends Record<string, any>>(
   groupId: VuebuggerEntry['groupId'],
   state: T,
-): T {
+): T => {
   if (!import.meta.env.DEV) return state
 
   const instance = getCurrentInstance()
@@ -20,7 +25,7 @@ export function debug<T extends Record<string, any>>(
     instance?.type.name ||
     instance?.type.__name ||
     'No component'
-  const uid = `${componentName}/${groupId}-${Math.random().toString(36).slice(2, 9)}`
+  const uid = `${componentName}/${groupId}-${getUid()}`
 
   const scope = getCurrentScope() ?? effectScope()
   scope.run(() => {
