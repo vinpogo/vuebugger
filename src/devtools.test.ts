@@ -273,7 +273,7 @@ test('inspectComponent adds state to payload', () => {
   expect(payload.instanceData.state).toMatchInlineSnapshot(`
     [
       {
-        "editable": true,
+        "editable": false,
         "key": "value",
         "type": "test-uid",
         "value": 42,

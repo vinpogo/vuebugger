@@ -97,7 +97,7 @@ export const handleInspectComponent: DevtoolsApiHandler<
           type: entry.uid,
           key,
           value,
-          editable: !isReadonly(value),
+          editable: false, // cannot edit anyways
         }),
       )
     })
