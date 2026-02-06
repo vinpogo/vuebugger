@@ -4,6 +4,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -18,5 +19,3 @@ jobs:
       - run: mise run build
 
       - run: pnpm publish --no-git-checks
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
