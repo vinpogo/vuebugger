@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     include: ['src/**/*.test.ts'],
     reporters: process.env.GITHUB_ACTIONS
-      ? ['dot', 'github-actions']
-      : ['dot'],
+      ? ['default', 'github-actions']
+      : ['default'],
   },
 })
