@@ -5,7 +5,7 @@ import { PluginOptions } from './types'
 
 export { debug } from './debug'
 
-const plugin: Plugin<PluginOptions | undefined> = {
+const plugin: Plugin<[PluginOptions?]> = {
   install: (app: App, options?: PluginOptions) => {
     if (!import.meta.env.DEV) return
     if (options?.uidFn) setUidGenerator(options.uidFn)
