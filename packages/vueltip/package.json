@@ -1,0 +1,47 @@
+{
+  "name": "@vingy/vueltip",
+  "version": "0.1.0",
+  "description": "Headless tooltip which only shows when necessary.",
+  "keywords": [
+    "composition-api",
+    "plugin",
+    "tooltip",
+    "vue"
+  ],
+  "license": "MIT",
+  "author": "vingy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vinpogo/vue-utils"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run --coverage",
+    "build": "tsdown",
+    "dev": "tsdown -w"
+  },
+  "devDependencies": {
+    "@floating-ui/vue": "catalog:",
+    "@vingy/shared": "workspace:^"
+  },
+  "peerDependencies": {
+    "vue": "catalog:"
+  },
+  "packageManager": "pnpm@10.28.0"
+}
