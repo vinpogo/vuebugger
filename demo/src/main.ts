@@ -1,7 +1,7 @@
-import { createApp } from 'vue'
+import Vuebugger from '@vingy/vuebugger'
 import { createPinia } from 'pinia'
+import { createApp } from 'vue'
 import App from './App.vue'
-import Vuebugger from '../../src'
 
 const app = createApp(App)
 

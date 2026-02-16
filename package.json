@@ -1,16 +1,6 @@
 {
-  "name": "@vingy/vuebugger",
-  "version": "0.2.0",
-  "description": "Vue devtools plugin to debug anything.",
-  "keywords": [
-    "composable",
-    "composition-api",
-    "debugging",
-    "devtools",
-    "plugin",
-    "state",
-    "vue"
-  ],
+  "name": "@vingy/vue-utilities",
+  "description": "Monorepo for all my vue utilities.",
   "license": "MIT",
   "author": "vingy",
   "repository": {
@@ -21,36 +11,21 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": false,
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
-    }
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "test": "vitest",
-    "test:ci": "vitest run --coverage",
-    "build": "tsdown",
-    "dev": "tsdown -w"
+    "test": "pnpm -r test",
+    "test:ci": "pnpm -r test:ci",
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev"
   },
   "devDependencies": {
-    "@types/node": "^25.0.10",
-    "@vitest/coverage-v8": "4.0.18",
-    "@vue/devtools-api": "^8.0.5",
-    "oxfmt": "^0.27.0",
-    "oxlint": "^1.42.0",
-    "tsdown": "^0.20.1",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
-  },
-  "peerDependencies": {
-    "vue": "^3.5.0"
+    "@tsconfig/node24": "catalog:",
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "packageManager": "pnpm@10.28.0"
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { debug } from '@vingy/vuebugger'
 import { ref } from 'vue'
-import { debug } from '../../src'
 import MyComponent from './MyComponent.vue'
 
 const count = ref(0)
