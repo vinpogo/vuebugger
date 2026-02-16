@@ -13,6 +13,6 @@ install = "pnpm install"
 build = "pnpm build"
 dev = "pnpm dev"
 test = "pnpm test"
-oxlint = "pnpm oxlint src"
-oxfmt = "pnpm oxfmt --check src"
+oxlint = "pnpm oxlint"
+oxfmt = "pnpm oxfmt --check"
 

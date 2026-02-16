@@ -1,5 +1,5 @@
+import { debug } from '@vingy/vuebugger'
 import { computed, reactive, ref } from 'vue'
-import { debug } from '../../src'
 
 export function useFoo() {
   const priv = ref(0)
