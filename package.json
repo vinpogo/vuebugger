@@ -15,9 +15,13 @@
     "test": "pnpm -r test",
     "test:ci": "pnpm -r test:ci",
     "build": "pnpm -r build",
-    "dev": "pnpm -r dev"
+    "dev": "pnpm -r dev",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "pnpm build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "catalog:",
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
