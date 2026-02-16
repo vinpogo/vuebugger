@@ -4,6 +4,7 @@ packages:
 
 catalogs:
   default:
+    '@floating-ui/vue': ^1.1.10
     '@tsconfig/node24': ^24.0.4
     '@types/node': ^25.0.10
     '@vitejs/plugin-vue': ^6.0.3
