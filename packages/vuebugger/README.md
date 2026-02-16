@@ -43,6 +43,6 @@ export const useFoo = (initial: number) => {
 }
 ```
 
-See the demo app in [demo/](demo).
+See the demo app in [demo/](../../demo/).
 
 > **Note:** This plugin is tree-shakable and has zero runtime overhead when `debug()` calls are not used.
