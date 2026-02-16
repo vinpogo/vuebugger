@@ -15,7 +15,7 @@
   "author": "vingy",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vinpogo/vuebugger"
+    "url": "https://github.com/vinpogo/vue-utils"
   },
   "files": [
     "dist"
