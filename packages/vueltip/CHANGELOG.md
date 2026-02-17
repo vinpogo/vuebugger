@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 0.3.0
+
+### Minor Changes
+
+- 5c84b00: Tooltip component can now be passed via plugin options
+
 ## 0.2.0
 
 ### Minor Changes
