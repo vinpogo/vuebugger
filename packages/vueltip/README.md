@@ -124,3 +124,5 @@ Now you can use the `v-tooltip` directive on any element:
   </div>
 </template>
 ```
+
+See the demo app in [demo/](../../demo/).
