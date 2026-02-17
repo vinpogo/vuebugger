@@ -7,9 +7,9 @@ import Tooltip from './Tooltip.vue'
 
 const app = createApp(App)
 
-app
-  .use(createPinia())
-  .use(Vuebugger)
-  .use(tooltipPlugin, { component: Tooltip })
+app.use(createPinia()).use(Vuebugger).use(tooltipPlugin, {
+  component: Tooltip,
+  handleDialogModals: true,
+})
 
 app.mount('#app')

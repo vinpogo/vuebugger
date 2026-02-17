@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { debug } from '@vingy/vuebugger'
 import { ref } from 'vue'
+import DialogDemo from './DialogDemo.vue'
 import MyComponent from './MyComponent.vue'
 
 const count = ref(0)
@@ -103,6 +104,18 @@ debug('foobar', { count })
             </div>
           </div>
         </div>
+      </section>
+
+      <section
+        class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg"
+      >
+        <h2 class="mb-4 text-lg font-semibold text-white">
+          Vueltip in Dialog
+        </h2>
+        <p class="mb-4 text-sm text-slate-400">
+          Tooltips work seamlessly inside dialog elements.
+        </p>
+        <DialogDemo />
       </section>
 
       <section
