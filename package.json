@@ -26,6 +26,7 @@
     "@vitest/browser-playwright": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
+    "playwright": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
