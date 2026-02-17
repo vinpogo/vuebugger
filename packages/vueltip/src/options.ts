@@ -1,3 +1,4 @@
+import { Component } from 'vue'
 import type { Options } from './types'
 
 export let options: Options = {
@@ -8,6 +9,8 @@ export let options: Options = {
   handleDialogModals: false,
 }
 
-export const setOptions = (opts?: Partial<Options>) => {
+export const setOptions = (
+  opts?: Partial<Options> & { component: Component },
+) => {
   options = { ...options, ...opts }
 }
