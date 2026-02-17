@@ -1,6 +1,6 @@
 {
   "name": "@vingy/vueltip",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Headless tooltip which only shows when necessary.",
   "keywords": [
     "composition-api",
