@@ -12,8 +12,7 @@
   ],
   "type": "module",
   "scripts": {
-    "test": "pnpm -r test",
-    "test:ci": "pnpm -r test:ci",
+    "test": "pnpm vitest",
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
     "changeset": "changeset",
@@ -24,7 +23,7 @@
     "@changesets/cli": "catalog:",
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "tsdown": "catalog:",
