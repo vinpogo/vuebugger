@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: [oxlint, oxfmt, build, test:ci]
+        task: [oxlint, oxfmt, build, test]
     steps:
       - uses: actions/checkout@v4
 
@@ -24,10 +24,16 @@ jobs:
 
       - run: mise run install --frozen-lockfile
 
+      - name: Install Playwright Browsers
+        if: matrix.task == 'test'
+        run: pnpm exec playwright install --with-deps chromium
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 0
+
       - run: mise run ${{ matrix.task }}
 
       - name: Upload coverage artifacts
-        if: matrix.task == 'test:ci'
+        if: matrix.task == 'test'
         uses: actions/upload-artifact@v4
         with:
           name: coverage

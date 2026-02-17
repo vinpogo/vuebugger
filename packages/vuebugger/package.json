@@ -34,8 +34,6 @@
     "access": "public"
   },
   "scripts": {
-    "test": "vitest",
-    "test:ci": "vitest run --coverage",
     "build": "tsdown",
     "dev": "tsdown -w"
   },

@@ -28,7 +28,6 @@ export const tooltipDirective = {
   created: (el, binding) => {
     const key = generateKey()
     setContent(key, toContent(binding.value))
-    console.log(toContent(binding.value))
     el.setAttribute(options.keyAttribute, key)
 
     el.setAttribute(
