@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 1.1.0
+
+### Minor Changes
+
+- dd312f3: allow to control which direction to detect for truncation
+
 ## 1.0.0
 
 ### Major Changes
