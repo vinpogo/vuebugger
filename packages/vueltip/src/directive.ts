@@ -47,9 +47,18 @@ const truncationDirection = (
 
 export const vueltipDirective = {
   updated: (el, binding) => {
-    ensureKey(el, (key) =>
-      setContent(key, toContent(binding.value)),
-    )
+    ensureKey(el, (key) => {
+      el.setAttribute(
+        getOption('placementAttribute'),
+        extractPlacement(binding),
+      )
+      el.setAttribute(
+        getOption('truncateAttribute'),
+        truncationDirection(binding.modifiers ?? {}),
+      )
+
+      setContent(key, toContent(binding.value))
+    })
   },
   created: (el, binding) => {
     const key = generateKey()
