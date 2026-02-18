@@ -1,4 +1,3 @@
-import type { ObjectDirective } from 'vue'
 import { onMouseout, onMouseover } from './listeners'
 import { options } from './options'
 import {
@@ -6,7 +5,11 @@ import {
   generateKey,
   setContent,
 } from './state'
-import type { Binding, Content } from './types.ts'
+import type {
+  Binding,
+  Content,
+  TooltipDirective,
+} from './types.ts'
 import { ensureKey } from './utils'
 
 const toContent = (value: Binding): Content =>
@@ -19,7 +22,7 @@ const toContent = (value: Binding): Content =>
 const extractPlacement = (value: Binding) =>
   typeof value === 'string' ? 'top' : value.placement
 
-export const tooltipDirective = {
+export const vueltipDirective = {
   updated: (el, binding) => {
     ensureKey(el, (key) =>
       setContent(key, toContent(binding.value)),
@@ -48,4 +51,4 @@ export const tooltipDirective = {
     el.removeEventListener('mouseleave', onMouseout)
     el.removeEventListener('blur', onMouseout)
   },
-} satisfies ObjectDirective<HTMLElement, Binding>
+} satisfies TooltipDirective

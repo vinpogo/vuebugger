@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { tooltipDirective } from './directive'
+import { vueltipDirective } from './directive'
 import { setOptions } from './options'
 import { getContent } from './state'
 
@@ -22,7 +22,7 @@ describe('created hook', () => {
     const el = setupDirective()
     const binding = { value: 'Tooltip text' }
 
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
 
     const key = el.getAttribute('tooltip-key')
     expect(key).toBeTruthy()
@@ -42,7 +42,7 @@ describe('created hook', () => {
       },
     }
 
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
 
     const key = el.getAttribute('tooltip-key')
     expect(getContent(key!)).toEqual({
@@ -56,7 +56,7 @@ describe('created hook', () => {
     const el = setupDirective()
     const binding = { value: 'Default text' }
 
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
 
     expect(el.getAttribute('tooltip-placement')).toBe('top')
 
@@ -72,7 +72,7 @@ describe('created hook', () => {
       },
     }
 
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
 
     expect(el.getAttribute('tooltip-placement')).toBe(
       'bottom',
@@ -89,7 +89,7 @@ describe('created hook', () => {
     )
     const binding = { value: 'Text' }
 
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
 
     expect(addEventListenerSpy).toHaveBeenCalledWith(
       'mouseenter',
@@ -117,11 +117,11 @@ describe('updated hook', () => {
   it('updates content with new binding', () => {
     const el = setupDirective()
     const binding1 = { value: 'Original text' }
-    tooltipDirective.created?.(el, binding1 as any)
+    vueltipDirective.created?.(el, binding1 as any)
     const key = el.getAttribute('tooltip-key')!
 
     const binding2 = { value: 'Updated text' }
-    tooltipDirective.updated?.(el, binding2 as any)
+    vueltipDirective.updated?.(el, binding2 as any)
 
     expect(getContent(key)).toEqual({
       text: 'Updated text',
@@ -135,10 +135,10 @@ describe('beforeUnmount hook', () => {
   it('deletes content', () => {
     const el = setupDirective()
     const binding = { value: 'Text' }
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
     const key = el.getAttribute('tooltip-key')!
 
-    tooltipDirective.beforeUnmount?.(el)
+    vueltipDirective.beforeUnmount?.(el)
 
     expect(getContent(key)).toBeUndefined()
 
@@ -148,14 +148,14 @@ describe('beforeUnmount hook', () => {
   it('removes event listeners', () => {
     const el = setupDirective()
     const binding = { value: 'Text' }
-    tooltipDirective.created?.(el, binding as any)
+    vueltipDirective.created?.(el, binding as any)
 
     const removeEventListenerSpy = vi.spyOn(
       el,
       'removeEventListener',
     )
 
-    tooltipDirective.beforeUnmount?.(el)
+    vueltipDirective.beforeUnmount?.(el)
 
     expect(removeEventListenerSpy).toHaveBeenCalledWith(
       'mouseenter',

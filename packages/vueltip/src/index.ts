@@ -1,3 +1,5 @@
-export { useTooltip } from './composables'
-export { tooltipPlugin } from './plugin'
+export { useVueltip } from './composables'
+export { vueltipDirective } from './directive'
+export { setOptions } from './options'
+export { vueltipPlugin } from './plugin'
 export type { Content } from './types'

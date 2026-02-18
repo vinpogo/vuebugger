@@ -2,7 +2,7 @@ import type {
   Placement,
   UseFloatingOptions,
 } from '@floating-ui/vue'
-import type { ShallowRef } from 'vue'
+import type { Directive, ShallowRef } from 'vue'
 
 export interface Content {
   text: string
@@ -13,6 +13,11 @@ export type Binding =
       content: string | Content
       placement: Placement
     }
+
+export type TooltipDirective = Directive<
+  HTMLElement,
+  Binding
+>
 export type Options = {
   /** @default 'tooltip-placement' */
   placementAttribute: string
@@ -32,4 +37,10 @@ export type UseTooltipOptions = {
   padding?: number
   arrowSize?: number
   floatingOptions?: UseFloatingOptions<HTMLElement>
+}
+
+declare module 'vue' {
+  export interface GlobalDirectives {
+    vTooltip: TooltipDirective
+  }
 }

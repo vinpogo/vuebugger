@@ -29,7 +29,7 @@ const sideMap: Record<string, string> = {
   left: 'right',
 }
 
-export const useTooltip = ({
+export const useVueltip = ({
   tooltipElement,
   arrowElement,
   offset: _offset,
