@@ -2,15 +2,16 @@ import type {
   Placement,
   UseFloatingOptions,
 } from '@floating-ui/vue'
+import { Maybe } from '@vingy/shared/types'
 import type { Directive, ShallowRef } from 'vue'
 
 export interface Content {
-  text: string
+  text: Maybe<string>
 }
 export type Binding =
-  | string
+  | Maybe<string>
   | {
-      content: string | Content
+      content: Maybe<string | Content>
       placement: Placement
     }
 export type Modifier = 'x' | 'y' | 'none' | 'both'
