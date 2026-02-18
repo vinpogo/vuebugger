@@ -12,13 +12,13 @@ export const hoveredElement = ref<Maybe<HTMLElement>>()
 export const debouncedHoveredElement =
   ref<Maybe<HTMLElement>>()
 
-const contentMap = new Map<string, Content>()
+const contentMap = ref(new Map<string, Content>())
 export const getContent = (key: string) =>
-  contentMap.get(key)
+  contentMap.value.get(key)
 export const setContent = (key: string, value: Content) =>
-  contentMap.set(key, value)
+  contentMap.value.set(key, value)
 export const deleteContent = (key: string) =>
-  contentMap.delete(key)
+  contentMap.value.delete(key)
 export const generateKey = () => crypto.randomUUID()
 
 export const tooltipKey = ref<Maybe<string>>()
@@ -26,7 +26,12 @@ export const tooltipContent = ref<Maybe<Content>>()
 
 let timerId: Maybe<ReturnType<typeof setTimeout>>
 watch(
-  [tooltipKey, hoveredElement, tooltipPlacement],
+  [
+    tooltipKey,
+    hoveredElement,
+    tooltipPlacement,
+    () => getContent(tooltipKey.value ?? ''),
+  ],
   ([key, el, placement]) => {
     if (!key) {
       return
