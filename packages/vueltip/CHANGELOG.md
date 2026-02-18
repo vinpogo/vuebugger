@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 1.3.0
+
+### Minor Changes
+
+- 36adc3f: allow undefined and null as value
+
 ## 1.2.0
 
 ### Minor Changes
