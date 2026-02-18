@@ -15,19 +15,24 @@ import type {
 } from './types.ts'
 import { ensureKey } from './utils'
 
-const toContent = (value: Binding): Content =>
-  typeof value === 'string'
-    ? { text: value }
-    : typeof value.content === 'string'
-      ? { text: value.content }
-      : value.content
-
+const toContent = (value: Binding): Content => {
+  if (value == null) return { text: value }
+  if (typeof value === 'string') return { text: value }
+  if (value.content == null) return { text: value.content }
+  if (typeof value.content === 'string')
+    return { text: value.content }
+  return value.content
+}
 const extractPlacement = (
   binding: DirectiveBinding<Binding, Modifier, Placement>,
 ) => {
   const { value, arg } = binding
 
-  if (typeof value !== 'string' && 'placement' in value) {
+  if (
+    value &&
+    typeof value !== 'string' &&
+    'placement' in value
+  ) {
     return value.placement
   }
   if (!arg) return getOption('defaultPlacement')

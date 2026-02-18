@@ -32,8 +32,9 @@ export const onMouseover = ensureEventTarget((target) =>
     const { text } = content
 
     if (
-      elementContainsText(target, text) &&
-      !isTruncated(target)
+      !text ||
+      (elementContainsText(target, text) &&
+        !isTruncated(target))
     ) {
       return
     }
