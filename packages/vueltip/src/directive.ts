@@ -1,3 +1,5 @@
+import { Placement } from '@floating-ui/vue'
+import { DirectiveBinding } from 'vue'
 import { onMouseout, onMouseover } from './listeners'
 import { options } from './options'
 import {
@@ -20,8 +22,17 @@ const toContent = (value: Binding): Content =>
       ? { text: value.content }
       : value.content
 
-const extractPlacement = (value: Binding) =>
-  typeof value === 'string' ? 'top' : value.placement
+const extractPlacement = (
+  binding: DirectiveBinding<Binding, Modifier, Placement>,
+) => {
+  const { value, arg } = binding
+
+  if (typeof value !== 'string' && 'placement' in value) {
+    return value.placement
+  }
+  if (!arg) return options.defaultPlacement
+  return arg
+}
 
 const truncationDirection = (
   modifiers: Partial<Record<Modifier, boolean | undefined>>,
@@ -47,7 +58,7 @@ export const vueltipDirective = {
 
     el.setAttribute(
       options.placementAttribute,
-      extractPlacement(binding.value),
+      extractPlacement(binding),
     )
     el.setAttribute(
       options.truncateAttribute,

@@ -18,7 +18,8 @@ export type Modifier = 'x' | 'y' | 'none' | 'both'
 export type TooltipDirective = Directive<
   HTMLElement,
   Binding,
-  Modifier
+  Modifier,
+  Placement
 >
 
 export type Options = {
@@ -36,6 +37,8 @@ export type Options = {
   handleDialogModals: boolean
   /** @default 'both' */
   defaultTruncateDetection: Modifier
+  /** @default 'top' */
+  defaultPlacement: Placement
 }
 export type UseTooltipOptions = {
   tooltipElement: Readonly<ShallowRef<HTMLElement | null>>
