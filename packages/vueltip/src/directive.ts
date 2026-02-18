@@ -1,7 +1,7 @@
 import { Placement } from '@floating-ui/vue'
 import { DirectiveBinding } from 'vue'
 import { onMouseout, onMouseover } from './listeners'
-import { options } from './options'
+import { getOption } from './options'
 import {
   deleteContent,
   generateKey,
@@ -30,7 +30,7 @@ const extractPlacement = (
   if (typeof value !== 'string' && 'placement' in value) {
     return value.placement
   }
-  if (!arg) return options.defaultPlacement
+  if (!arg) return getOption('defaultPlacement')
   return arg
 }
 
@@ -42,7 +42,7 @@ const truncationDirection = (
   if (modifiers.x && modifiers.y) return 'both'
   if (modifiers.x) return 'x'
   if (modifiers.y) return 'y'
-  return options.defaultTruncateDetection
+  return getOption('defaultTruncateDetection')
 }
 
 export const vueltipDirective = {
@@ -54,14 +54,14 @@ export const vueltipDirective = {
   created: (el, binding) => {
     const key = generateKey()
     setContent(key, toContent(binding.value))
-    el.setAttribute(options.keyAttribute, key)
+    el.setAttribute(getOption('keyAttribute'), key)
 
     el.setAttribute(
-      options.placementAttribute,
+      getOption('placementAttribute'),
       extractPlacement(binding),
     )
     el.setAttribute(
-      options.truncateAttribute,
+      getOption('truncateAttribute'),
       truncationDirection(binding.modifiers ?? {}),
     )
 

@@ -1,6 +1,6 @@
 import type { Options } from './types'
 
-export let options: Options = {
+let options: Options = {
   placementAttribute: 'vueltip-placement',
   keyAttribute: 'vueltip-key',
   truncateAttribute: 'vueltip-truncate',
@@ -14,3 +14,7 @@ export let options: Options = {
 export const setOptions = (opts?: Partial<Options>) => {
   options = { ...options, ...opts }
 }
+
+export const getOption = <T extends keyof Options>(
+  key: T,
+): Options[T] => options[key]

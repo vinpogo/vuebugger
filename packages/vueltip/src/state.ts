@@ -1,7 +1,7 @@
 import type { Placement } from '@floating-ui/vue'
 import type { Maybe } from '@vingy/shared/types'
 import { ref, watch } from 'vue'
-import { options } from './options'
+import { getOption } from './options'
 import type { Content } from './types'
 
 export const tooltipPlacement = ref<Placement>('top')
@@ -40,8 +40,8 @@ watch(
       clearTimeout(timerId)
     }
     const timeout = el
-      ? options.showDelay
-      : options.hideDelay
+      ? getOption('showDelay')
+      : getOption('hideDelay')
     timerId = setTimeout(() => {
       tooltipContent.value = getContent(key)
       debouncedHoveredElement.value = el
