@@ -8,6 +8,7 @@ export let options: Options = {
   hideDelay: 200,
   handleDialogModals: false,
   defaultTruncateDetection: 'both',
+  defaultPlacement: 'top',
 }
 
 export const setOptions = (opts?: Partial<Options>) => {
