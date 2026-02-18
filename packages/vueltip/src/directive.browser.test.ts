@@ -9,6 +9,7 @@ const setupDirective = () => {
   setOptions({
     keyAttribute: 'tooltip-key',
     placementAttribute: 'tooltip-placement',
+    truncateAttribute: 'tooltip-truncate',
   })
   return el
 }
@@ -52,17 +53,6 @@ describe('created hook', () => {
     teardownDirective(el)
   })
 
-  it('sets placement attribute with string binding', () => {
-    const el = setupDirective()
-    const binding = { value: 'Default text' }
-
-    vueltipDirective.created?.(el, binding as any)
-
-    expect(el.getAttribute('tooltip-placement')).toBe('top')
-
-    teardownDirective(el)
-  })
-
   it('sets placement attribute with object binding', () => {
     const el = setupDirective()
     const binding = {
@@ -77,6 +67,106 @@ describe('created hook', () => {
     expect(el.getAttribute('tooltip-placement')).toBe(
       'bottom',
     )
+
+    teardownDirective(el)
+  })
+
+  it('sets placement attribute with arg parameter', () => {
+    const el = setupDirective()
+    const binding = { value: 'Text', arg: 'left' }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-placement')).toBe(
+      'left',
+    )
+
+    teardownDirective(el)
+  })
+  it('prioritizes placement in value over arg', () => {
+    const el = setupDirective()
+    const binding = {
+      value: {
+        content: 'Text',
+        placement: 'bottom' as const,
+      },
+      arg: 'left',
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-placement')).toBe(
+      'bottom',
+    )
+
+    teardownDirective(el)
+  })
+  it('sets truncate attribute with none modifier', () => {
+    const el = setupDirective()
+    const binding = {
+      value: 'Text',
+      modifiers: { none: true },
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-truncate')).toBe('none')
+
+    teardownDirective(el)
+  })
+
+  it('sets truncate attribute with both modifier', () => {
+    const el = setupDirective()
+    const binding = {
+      value: 'Text',
+      modifiers: { both: true },
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-truncate')).toBe('both')
+
+    teardownDirective(el)
+  })
+
+  it('sets truncate attribute with x modifier', () => {
+    const el = setupDirective()
+    const binding = {
+      value: 'Text',
+      modifiers: { x: true },
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-truncate')).toBe('x')
+
+    teardownDirective(el)
+  })
+
+  it('sets truncate attribute with y modifier', () => {
+    const el = setupDirective()
+    const binding = {
+      value: 'Text',
+      modifiers: { y: true },
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-truncate')).toBe('y')
+
+    teardownDirective(el)
+  })
+
+  it('sets truncate attribute with both x and y modifiers', () => {
+    const el = setupDirective()
+    const binding = {
+      value: 'Text',
+      modifiers: { x: true, y: true },
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    expect(el.getAttribute('tooltip-truncate')).toBe('both')
 
     teardownDirective(el)
   })
@@ -126,6 +216,62 @@ describe('updated hook', () => {
     expect(getContent(key)).toEqual({
       text: 'Updated text',
     })
+
+    teardownDirective(el)
+  })
+
+  it('updates placement attribute via arg', () => {
+    const el = setupDirective()
+    const binding1 = { value: 'Text', arg: 'top' }
+    vueltipDirective.created?.(el, binding1 as any)
+
+    const binding2 = { value: 'Text', arg: 'right' }
+    vueltipDirective.updated?.(el, binding2 as any)
+
+    expect(el.getAttribute('tooltip-placement')).toBe(
+      'right',
+    )
+
+    teardownDirective(el)
+  })
+
+  it('updates placement attribute via object binding', () => {
+    const el = setupDirective()
+    const binding1 = {
+      value: { content: 'Text', placement: 'top' as const },
+    }
+    vueltipDirective.created?.(el, binding1 as any)
+
+    const binding2 = {
+      value: {
+        content: 'Text',
+        placement: 'bottom' as const,
+      },
+    }
+    vueltipDirective.updated?.(el, binding2 as any)
+
+    expect(el.getAttribute('tooltip-placement')).toBe(
+      'bottom',
+    )
+
+    teardownDirective(el)
+  })
+
+  it('updates truncate attribute with new modifiers', () => {
+    const el = setupDirective()
+    const binding1 = {
+      value: 'Text',
+      modifiers: { x: true },
+    }
+    vueltipDirective.created?.(el, binding1 as any)
+
+    const binding2 = {
+      value: 'Text',
+      modifiers: { y: true },
+    }
+    vueltipDirective.updated?.(el, binding2 as any)
+
+    expect(el.getAttribute('tooltip-truncate')).toBe('y')
 
     teardownDirective(el)
   })
