@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 1.0.0
+
+### Major Changes
+
+- 461579b: Proper typescript support
+
 ## 0.3.0
 
 ### Minor Changes
