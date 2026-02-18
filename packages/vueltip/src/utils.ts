@@ -1,10 +1,29 @@
 import { options } from './options'
+import { Modifier } from './types'
 
 export function isTruncated(el: HTMLElement) {
+  const direction = getTruncationDirection(el)
+
+  const x = el.offsetWidth < el.scrollWidth - 1
+  const y = el.offsetHeight < el.scrollHeight - 1
+
+  switch (direction) {
+    case 'x':
+      return x
+    case 'y':
+      return y
+    case 'both':
+      return x || y
+    case 'none':
+      return true
+  }
+}
+
+function getTruncationDirection(el: HTMLElement) {
   return (
-    // offset is rounded down, scroll is rounded up
-    el.offsetWidth < el.scrollWidth - 1 ||
-    el.offsetHeight < el.scrollHeight - 1
+    (el.getAttribute(
+      options.truncateAttribute,
+    ) as Modifier) ?? options.defaultTruncateDetection
   )
 }
 

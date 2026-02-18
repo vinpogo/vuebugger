@@ -8,6 +8,7 @@ import {
 import type {
   Binding,
   Content,
+  Modifier,
   TooltipDirective,
 } from './types.ts'
 import { ensureKey } from './utils'
@@ -21,6 +22,17 @@ const toContent = (value: Binding): Content =>
 
 const extractPlacement = (value: Binding) =>
   typeof value === 'string' ? 'top' : value.placement
+
+const truncationDirection = (
+  modifiers: Partial<Record<Modifier, boolean | undefined>>,
+) => {
+  if (modifiers.none) return 'none'
+  if (modifiers.both) return 'both'
+  if (modifiers.x && modifiers.y) return 'both'
+  if (modifiers.x) return 'x'
+  if (modifiers.y) return 'y'
+  return options.defaultTruncateDetection
+}
 
 export const vueltipDirective = {
   updated: (el, binding) => {
@@ -36,6 +48,10 @@ export const vueltipDirective = {
     el.setAttribute(
       options.placementAttribute,
       extractPlacement(binding.value),
+    )
+    el.setAttribute(
+      options.truncateAttribute,
+      truncationDirection(binding.modifiers ?? {}),
     )
 
     el.addEventListener('mouseenter', onMouseover)
