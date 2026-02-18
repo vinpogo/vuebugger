@@ -1,4 +1,4 @@
-import { options } from './options'
+import { getOption } from './options'
 import { Modifier } from './types'
 
 export function isTruncated(el: HTMLElement) {
@@ -22,8 +22,8 @@ export function isTruncated(el: HTMLElement) {
 function getTruncationDirection(el: HTMLElement) {
   return (
     (el.getAttribute(
-      options.truncateAttribute,
-    ) as Modifier) ?? options.defaultTruncateDetection
+      getOption('truncateAttribute'),
+    ) as Modifier) ?? getOption('defaultTruncateDetection')
   )
 }
 
@@ -65,7 +65,7 @@ export const ensureKey = <T>(
   el: HTMLElement,
   fn: (key: string) => T,
 ) => {
-  const key = el.getAttribute(options.keyAttribute)
+  const key = el.getAttribute(getOption('keyAttribute'))
   if (!key) return
   return fn(key)
 }

@@ -13,7 +13,7 @@ import {
   type StyleValue,
   watch,
 } from 'vue'
-import { options } from './options'
+import { getOption } from './options'
 import {
   debouncedHoveredElement,
   debouncedTooltipPlacement,
@@ -95,7 +95,7 @@ export const useVueltip = ({
     () => !!debouncedHoveredElement.value,
   )
 
-  if (options.handleDialogModals) {
+  if (getOption('handleDialogModals')) {
     watch(show, (value) => {
       if (
         !value ||

@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/vue'
-import { options } from './options'
+import { getOption } from './options'
 import {
   getContent,
   hoveredElement,
@@ -39,7 +39,7 @@ export const onMouseover = ensureEventTarget((target) =>
     }
 
     const placement = target.getAttribute(
-      options.placementAttribute,
+      getOption('placementAttribute'),
     ) as Placement
 
     tooltipKey.value = key
