@@ -1,5 +1,16 @@
 # @vingy/vueltip
 
+## 1.2.0
+
+### Minor Changes
+
+- 64a2fd8: allow placement via directive arg
+
+### Patch Changes
+
+- 55c6067: updates tooltip content when it changes dynamically
+- e2b04eb: update placementAttribute and truncateAttribute when binding update
+
 ## 1.1.0
 
 ### Minor Changes
