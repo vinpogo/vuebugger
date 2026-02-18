@@ -19,9 +19,11 @@ pnpm add vueltip
 Register the tooltip in your app:
 
 ```ts
-import Vueltip from 'vueltip'
+import { vueltipPlugin, vueltipDirective } from 'vueltip'
 
-createApp(App).use(Vueltip)
+createApp(App)
+  .use(vueltipPlugin, { component: Tooltip })
+  .directive('tooltip', vueltipDirective)
 ```
 
 ## Usage
@@ -49,19 +51,18 @@ First, create a tooltip component using the \`useTooltip\` composable:
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useTooltip } from 'vueltip'
+import { useTemplateRef } from 'vue'
+import { useVueltip } from 'vueltip'
 
-const tooltipElement = ref()
-const arrowElement = ref()
+const tooltipElement = useTemplateRef('tooltipElement')
+const arrowElement = useTemplateRef('arrowElement')
 
 const { tooltipStyles, arrowStyles, show, content } =
-  useTooltip({
+  useVueltip({
     tooltipElement,
     arrowElement,
     offset: 8,
     padding: 8,
-    arrowSize: 10,
   })
 </script>
 
@@ -89,14 +90,16 @@ Import and register the tooltip component and plugin in your app's entry point:
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import Vueltip from 'vueltip'
+import { vueltipPlugin, vueltipDirective } from 'vueltip'
 import Tooltip from './components/Tooltip.vue'
 
 const app = createApp(App)
 
-app.use(Vueltip, {
-  component: Tooltip,
-})
+app
+  .use(vueltipPlugin, {
+    component: Tooltip,
+  })
+  .directive('tooltip', vueltipDirective)
 
 app.mount('#app')
 ```
@@ -105,20 +108,23 @@ app.mount('#app')
 
 Now you can use the `v-tooltip` directive on any element:
 
-```ts
+```vue
 <template>
   <div>
-    <button v-tooltip="{ text: 'Click me to submit' }">
-      Submit
-    </button>
+    <button v-tooltip="'Click me to submit'">Submit</button>
 
     <input
-      v-tooltip="{ text: 'Enter your email address' }"
+      v-tooltip="'Enter your email address'"
       type="email"
       placeholder="Email"
     />
 
-    <span v-tooltip="{ text: 'This is a helpful tooltip' }">
+    <span
+      v-tooltip="{
+        content: 'This is a helpful tooltip',
+        placement: 'right',
+      }"
+    >
       Hover over me
     </span>
   </div>
@@ -126,3 +132,53 @@ Now you can use the `v-tooltip` directive on any element:
 ```
 
 See the demo app in [demo/](../../demo/).
+
+## Options
+
+### Plugin Options
+
+The `vueltipPlugin` accepts the following options:
+
+| Option                     | Type                             | Default               | Description                                                                                                            |
+| -------------------------- | -------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `component`                | `Component`                      | Required              | The Vue component to render as the tooltip                                                                             |
+| `showDelay`                | `number`                         | `0`                   | Delay in milliseconds before the tooltip appears on hover                                                              |
+| `hideDelay`                | `number`                         | `200`                 | Delay in milliseconds before the tooltip disappears when the cursor leaves                                             |
+| `defaultPlacement`         | `Placement`                      | `'top'`               | Default tooltip placement: `'top'`, `'bottom'`, `'left'`, `'right'`, etc.                                              |
+| `defaultTruncateDetection` | `'x' \| 'y' \| 'both' \| 'none'` | `'both'`              | Direction(s) to check for text truncation (`'x'` for horizontal, `'y'` for vertical, `'both'`, or `'none'` to disable) |
+| `handleDialogModals`       | `boolean`                        | `false`               | Whether to handle tooltips within HTML `<dialog>` elements with the `open` attribute (modal dialogs)                   |
+| `placementAttribute`       | `string`                         | `'vueltip-placement'` | HTML attribute name for tooltip placement overrides                                                                    |
+| `keyAttribute`             | `string`                         | `'vueltip-key'`       | HTML attribute name for tooltip identification                                                                         |
+| `truncateAttribute`        | `string`                         | `'vueltip-truncate'`  | HTML attribute name for truncate detection overrides                                                                   |
+
+### useVueltip Composable Options
+
+The `useVueltip` composable accepts the following options:
+
+| Option            | Type                       | Default  | Description                                                |
+| ----------------- | -------------------------- | -------- | ---------------------------------------------------------- |
+| `tooltipElement`  | `Ref<HTMLElement \| null>` | Required | Reference to the tooltip container element                 |
+| `arrowElement`    | `Ref<HTMLElement \| null>` | Optional | Reference to the arrow element for positioning             |
+| `offset`          | `number`                   | `0`      | Offset distance between the tooltip and the target element |
+| `padding`         | `number`                   | `0`      | Padding between the tooltip and the viewport edges         |
+| `arrowSize`       | `number`                   | `0`      | Size of the arrow element (used for proper positioning)    |
+| `floatingOptions` | `UseFloatingOptions`       | `{}`     | Advanced options for the underlying Floating UI library    |
+
+### Directive Options
+
+The `v-tooltip` directive accepts bindings in two formats:
+
+**Simple string (text only):**
+
+```ts
+v-tooltip="'Tooltip text'"
+```
+
+**Object with options:**
+
+```ts
+v-tooltip="{
+  content: 'Tooltip text',
+  placement: 'right'  // Placement: 'top', 'bottom', 'left', 'right', etc.
+}"
+```
