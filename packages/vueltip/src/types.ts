@@ -19,9 +19,9 @@ export type TooltipDirective = Directive<
   Binding
 >
 export type Options = {
-  /** @default 'tooltip-placement' */
+  /** @default 'vueltip-placement' */
   placementAttribute: string
-  /** @default 'tooltip-key' */
+  /** @default 'vueltip-key' */
   keyAttribute: string
   /** @default 0 */
   showDelay: number
