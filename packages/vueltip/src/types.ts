@@ -13,22 +13,29 @@ export type Binding =
       content: string | Content
       placement: Placement
     }
+export type Modifier = 'x' | 'y' | 'none' | 'both'
 
 export type TooltipDirective = Directive<
   HTMLElement,
-  Binding
+  Binding,
+  Modifier
 >
+
 export type Options = {
   /** @default 'vueltip-placement' */
   placementAttribute: string
   /** @default 'vueltip-key' */
   keyAttribute: string
+  /** @default 'vueltip-truncate' */
+  truncateAttribute: string
   /** @default 0 */
   showDelay: number
   /** @default 200 */
   hideDelay: number
   /** @default false */
   handleDialogModals: boolean
+  /** @default 'both' */
+  defaultTruncateDetection: Modifier
 }
 export type UseTooltipOptions = {
   tooltipElement: Readonly<ShallowRef<HTMLElement | null>>
