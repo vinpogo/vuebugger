@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useTooltip } from '@vingy/vueltip'
+import { useVueltip } from '@vingy/vueltip'
 import { useTemplateRef } from 'vue'
 
 const tooltipElement = useTemplateRef('tooltipElement')
 const arrowElement = useTemplateRef('arrowElement')
 
 const { tooltipStyles, arrowStyles, show, content } =
-  useTooltip({
+  useVueltip({
     tooltipElement,
     arrowElement,
     offset: 8,
