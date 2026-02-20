@@ -15,8 +15,9 @@ const { tooltipStyles, arrowStyles, show, content } =
 </script>
 
 <template>
+  <!-- v-show also works -->
   <div
-    v-show="show"
+    v-if="show"
     ref="tooltipElement"
     class="relative isolate"
     :style="[tooltipStyles]"
