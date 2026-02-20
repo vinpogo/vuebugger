@@ -7,12 +7,7 @@ import {
   useFloating,
 } from '@floating-ui/vue'
 import type { Maybe } from '@vingy/shared/types'
-import {
-  computed,
-  onMounted,
-  type StyleValue,
-  watch,
-} from 'vue'
+import { computed, type StyleValue, watch } from 'vue'
 import { getOption } from './options'
 import {
   debouncedHoveredElement,
@@ -38,19 +33,35 @@ export const useVueltip = ({
   floatingOptions,
 }: UseTooltipOptions) => {
   let initialParent: Maybe<HTMLElement>
-  onMounted(() => {
-    initialParent = tooltipElement.value?.parentElement
-    tooltipElement.value?.addEventListener(
-      'mouseenter',
-      () =>
+
+  const show = computed(
+    () => !!debouncedHoveredElement.value,
+  )
+
+  watch(
+    show,
+    (value, _, onCleanup) => {
+      if (!value) return
+      const el = tooltipElement.value
+      if (!el) return
+      initialParent = el.parentElement
+
+      const onEnter = () =>
         (hoveredElement.value =
-          debouncedHoveredElement.value),
-    )
-    tooltipElement.value?.addEventListener(
-      'mouseleave',
-      () => (hoveredElement.value = undefined),
-    )
-  })
+          debouncedHoveredElement.value)
+      const onLeave = () =>
+        (hoveredElement.value = undefined)
+
+      el.addEventListener('mouseenter', onEnter)
+      el.addEventListener('mouseleave', onLeave)
+
+      onCleanup(() => {
+        el.removeEventListener('mouseenter', onEnter)
+        el.removeEventListener('mouseleave', onLeave)
+      })
+    },
+    { flush: 'post' },
+  )
   const middleware = [
     offset(_offset),
     flip(),
@@ -90,10 +101,6 @@ export const useVueltip = ({
       [staticSide.value]: `-${size / 2}px`,
     }
   })
-
-  const show = computed(
-    () => !!debouncedHoveredElement.value,
-  )
 
   if (getOption('handleDialogModals')) {
     watch(show, (value) => {
