@@ -1,5 +1,12 @@
 # @vingy/vueltip
 
+## 1.3.1
+
+### Patch Changes
+
+- 94eb7ab: update dependencies
+- 6066521: When using v-if to control visibility of the tooltip element, hovering the tooltip, now keeps it visible.
+
 ## 1.3.0
 
 ### Minor Changes
