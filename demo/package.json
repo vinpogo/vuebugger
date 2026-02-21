@@ -7,11 +7,11 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "^4.2.0",
     "@vingy/vuebugger": "workspace:^",
     "@vingy/vueltip": "workspace:^",
     "pinia": "catalog:",
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "^4.2.0",
     "vue": "catalog:"
   },
   "devDependencies": {
