@@ -11,29 +11,40 @@ pnpm install
 # Build all packages
 pnpm build
 
-# Run tests
+# Run tests (both browser and unit tests)
 pnpm test
 
-# Run dev mode (watches for changes)
+# Run dev mode (watches for changes and rebuilds all packages)
 pnpm dev
 
+# Run the demo application
+pnpm demo
+
 # Lint and format code
-pnpm run lint
-pnpm run lint:fix
-pnpm run format
+pnpm oxlint
+pnpm oxlint --fix
+pnpm oxfmt
 ```
+
+I usually run `pnpm demo` in parallel to `pnpm dev`.
 
 ## Making Changes
 
 1. Create a branch from `main`
 2. Make your changes in the relevant package under `packages/`
 3. Add tests if applicable
-4. Ensure code passes linting: `pnpm run lint`
+4. Ensure code passes linting: `pnpm oxlint`
 5. Run tests: `pnpm test`
+6. [optional] add changeset
+7. open a PR
 
-## Versioning with Changesets
+> Please provide a description of the intended change in the PR.
 
-This monorepo uses [changesets](https://github.com/changesets/changesets) for managing independent package versions and changelogs.
+> Commit messages should follow [convential commit standard](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## Versioning
+
+This monorepo uses [semantic versioning](https://semver.org). Package versions are managed with [changesets](https://github.com/changesets/changesets) for independent package versions and changelogs.
 
 ### Creating a Changeset
 
@@ -43,111 +54,28 @@ After making changes, create a changeset:
 pnpm changeset
 ```
 
-This will prompt you to:
-
-1. **Select affected packages** - Choose which packages were modified
-2. **Select version bump** - Choose between:
-   - `patch` - Bug fixes (0.0.X)
-   - `minor` - Features (0.X.0)
-   - `major` - Breaking changes (X.0.0)
-3. **Write summary** - Describe your changes for the changelog
-
-Example:
-
-```
-✔ Which packages would you like to include? … @vingy/vuebugger
-✔ Which packages should have a MAJOR bump? … no
-✔ Which packages should have a MINOR bump? … @vingy/vuebugger
-✔ Write a summary for this change: Added support for custom options
-
-Summary: Added support for custom options
-```
-
 This creates a file in `.changeset/` (e.g., `.changeset/brave-lions-enjoy.md`). Commit this file with your changes.
-
-### Before Publishing
-
-The maintainers will handle versioning and publishing:
-
-```bash
-# Update package versions based on changesets
-pnpm changeset:version
-
-# This will:
-# - Update all package.json versions
-# - Create/update CHANGELOG.md files
-# - Consume all changesets
-# - Create a version commit
-
-# Review the changes, then publish
-pnpm changeset:publish
-
-# This will:
-# - Build all packages
-# - Publish to npm
-# - Create git tags (e.g., @vingy/vuebugger@1.0.0)
-# - Push tags to GitHub
-```
-
-## Package Structure
-
-```
-packages/
-├── vuebugger/          # Vue devtools plugin
-├── vueltip/            # Headless tooltip component
-└── [your-package]/     # New packages follow the same structure
-    ├── src/
-    ├── package.json
-    ├── tsconfig.json
-    └── tsdown.config.ts
-```
-
-Each package:
-
-- Has independent versioning via changesets
-- Uses the shared tooling (TypeScript, vitest, oxlint, oxfmt)
-- Publishes to npm with `@vingy` scope
-- Is linked in the workspace via `pnpm` for local development
-
-## Publishing New Packages
-
-Initial publish (manual):
-
-```bash
-pnpm --filter @vingy/your-package publish --access public
-```
-
-Future updates use changesets (see "Before Publishing" section above).
-
-## Guidelines
 
 - **No changesets needed for:**
   - Documentation changes
   - CI/CD workflow updates
   - README changes
-  - Dependency updates (these auto-bump if a package changes)
 
 - **Always create changesets for:**
-  - Code changes affecting any package
+  - Code changes affecting the bundle
   - API additions or changes
   - Bug fixes
 
 ## Code Quality
 
-All code is checked with:
+Code quality is checked automatically in CI.
 
-- **oxlint** - JavaScript/TypeScript linting
-- **oxfmt** - Code formatting
-- **vitest** - Unit tests
-- **TypeScript** - Type checking
+## Project Structure
 
-Run before committing:
-
-```bash
-pnpm run lint       # Check for issues
-pnpm run lint:fix   # Fix formatting
-pnpm test           # Run tests
-```
+- `packages/shared/` - Shared types and utilities
+- `packages/vuebugger/` - Vue debugging utilities
+- `packages/vueltip/` - Vue tooltip components/composables
+- `demo/` - Demo application for testing packages
 
 ## Questions?
 
