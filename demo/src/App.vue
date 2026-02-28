@@ -158,6 +158,15 @@ debug('foobar', { count })
           >
             Hover over me (right)
           </p>
+          <p
+            v-tooltip="{
+              text: 'Custom data: ',
+              custom: { sum: 23 },
+            }"
+            class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
+          >
+            Hover over me (custom data)
+          </p>
         </div>
         <div class="mt-6 space-y-3">
           <div>

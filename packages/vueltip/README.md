@@ -13,13 +13,16 @@ A headless tooltip component for Vue.js.
 To install Vueltip, use npm or yarn:
 
 ```bash
-pnpm add vueltip
+pnpm add @vingy/vueltip
 ```
 
 Register the tooltip in your app:
 
 ```ts
-import { vueltipPlugin, vueltipDirective } from 'vueltip'
+import {
+  vueltipPlugin,
+  vueltipDirective,
+} from '@vingy/vueltip'
 
 createApp(App)
   .use(vueltipPlugin, { component: Tooltip })
@@ -52,7 +55,7 @@ First, create a tooltip component using the \`useTooltip\` composable:
 
 <script setup>
 import { useTemplateRef } from 'vue'
-import { useVueltip } from 'vueltip'
+import { useVueltip } from '@vingy/vueltip'
 
 const tooltipElement = useTemplateRef('tooltipElement')
 const arrowElement = useTemplateRef('arrowElement')
@@ -90,7 +93,10 @@ Import and register the tooltip component and plugin in your app's entry point:
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import { vueltipPlugin, vueltipDirective } from 'vueltip'
+import {
+  vueltipPlugin,
+  vueltipDirective,
+} from '@vingy/vueltip'
 import Tooltip from './components/Tooltip.vue'
 
 const app = createApp(App)
@@ -181,4 +187,61 @@ v-tooltip="{
   text: 'Tooltip text',
   placement: 'right'  // Placement: 'top', 'bottom', 'left', 'right', etc.
 }"
+```
+
+## Custom Data
+
+You can extend the tooltip content with custom typed data for use in your tooltip component:
+
+**1. Create a type declaration file (e.g., `vueltip.d.ts`):**
+
+```ts
+declare module '@vingy/vueltip' {
+  interface CustomVueltipData {
+    userId?: number
+    userName?: string
+    severity?: 'info' | 'warning' | 'error'
+    metadata?: Record<string, unknown>
+  }
+}
+```
+
+**2. Use custom data in your directive:**
+
+```vue
+<button
+  v-tooltip="{
+    text: 'User profile',
+    custom: {
+      userId: 123,
+      userName: 'John Doe',
+      severity: 'info',
+    },
+  }"
+>
+  View Profile
+</button>
+```
+
+**3. Access custom data in your Tooltip component:**
+
+```vue
+<script setup>
+import { useVueltip } from '@vingy/vueltip'
+
+const { content, show } = useVueltip({
+  /* ... */
+})
+</script>
+
+<template>
+  <div v-if="show">
+    {{ content?.text }}
+
+    <!-- Access your custom data -->
+    <span v-if="content?.custom?.userId">
+      User ID: {{ content.custom.userId }}
+    </span>
+  </div>
+</template>
 ```
