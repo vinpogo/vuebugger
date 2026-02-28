@@ -20,3 +20,9 @@ app
   .directive('tooltip', vueltipDirective)
 
 app.mount('#app')
+
+declare module '@vingy/vueltip' {
+  export interface CustomVueltipData {
+    sum: number
+  }
+}

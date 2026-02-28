@@ -201,6 +201,24 @@ describe('created hook', () => {
     addEventListenerSpy.mockRestore()
     teardownDirective(el)
   })
+
+  it('set custom', () => {
+    const el = setupDirective()
+    const binding = {
+      value: { text: '', custom: { vin: 'foo' } },
+    }
+
+    vueltipDirective.created?.(el, binding as any)
+
+    const key = el.getAttribute('tooltip-key')
+    expect(key).toBeTruthy()
+    expect(getContent(key!)).toEqual({
+      text: '',
+      custom: { vin: 'foo' },
+    })
+
+    teardownDirective(el)
+  })
 })
 
 describe('updated hook', () => {
@@ -210,11 +228,18 @@ describe('updated hook', () => {
     vueltipDirective.created?.(el, binding1 as any)
     const key = el.getAttribute('tooltip-key')!
 
-    const binding2 = { value: 'Updated text' }
+    const binding2 = {
+      value: {
+        text: 'Updated text',
+        placement: 'right',
+        custom: { vin: 'foo' },
+      },
+    }
     vueltipDirective.updated?.(el, binding2 as any)
 
     expect(getContent(key)).toEqual({
       text: 'Updated text',
+      custom: { vin: 'foo' },
     })
 
     teardownDirective(el)

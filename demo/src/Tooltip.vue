@@ -31,6 +31,9 @@ const { tooltipStyles, arrowStyles, show, content } =
       class="relative z-10 rounded bg-slate-100 px-2 py-1 text-sm font-semibold text-slate-900 shadow-lg"
     >
       {{ content?.text }}
+      <span v-if="content?.custom">
+        {{ JSON.stringify(content.custom) }}</span
+      >
     </div>
   </div>
 </template>

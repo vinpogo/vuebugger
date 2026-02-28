@@ -5,20 +5,23 @@ import type {
 import { Maybe } from '@vingy/shared/types'
 import type { Directive, ShallowRef } from 'vue'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface CustomVueltipData {}
+
 export interface Content {
   text: Maybe<string>
+  custom?: CustomVueltipData
 }
-export type Binding =
+export type Value =
   | Maybe<string>
-  | {
-      text: Maybe<string | Content>
-      placement: Placement
-    }
+  | (Content & {
+      placement?: Placement
+    })
 export type Modifier = 'x' | 'y' | 'none' | 'both'
 
 export type TooltipDirective = Directive<
   HTMLElement,
-  Binding,
+  Value,
   Modifier,
   Placement
 >

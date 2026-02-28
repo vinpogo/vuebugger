@@ -8,30 +8,29 @@ import {
   setContent,
 } from './state'
 import type {
-  Binding,
   Content,
   Modifier,
   TooltipDirective,
+  Value,
 } from './types.ts'
 import { ensureKey } from './utils'
 
-const toContent = (value: Binding): Content => {
+const toContent = (value: Value): Content => {
   if (value == null) return { text: value }
   if (typeof value === 'string') return { text: value }
-  if (value.text == null) return { text: value.text }
-  if (typeof value.text === 'string')
-    return { text: value.text }
-  return value.text
+  const { placement: _, ...rest } = value
+  return rest
 }
 const extractPlacement = (
-  binding: DirectiveBinding<Binding, Modifier, Placement>,
+  binding: DirectiveBinding<Value, Modifier, Placement>,
 ) => {
   const { value, arg } = binding
 
   if (
     value &&
     typeof value !== 'string' &&
-    'placement' in value
+    'placement' in value &&
+    value.placement != null
   ) {
     return value.placement
   }
