@@ -145,17 +145,17 @@ See the demo app in [demo/](../../demo/).
 
 The `vueltipPlugin` accepts the following options:
 
-| Option                     | Type                             | Default               | Description                                                                                                            |
-| -------------------------- | -------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `component`                | `Component`                      | Required              | The Vue component to render as the tooltip                                                                             |
-| `showDelay`                | `number`                         | `0`                   | Delay in milliseconds before the tooltip appears on hover                                                              |
-| `hideDelay`                | `number`                         | `200`                 | Delay in milliseconds before the tooltip disappears when the cursor leaves                                             |
-| `defaultPlacement`         | `Placement`                      | `'top'`               | Default tooltip placement: `'top'`, `'bottom'`, `'left'`, `'right'`, etc.                                              |
-| `defaultTruncateDetection` | `'x' \| 'y' \| 'both' \| 'none'` | `'both'`              | Direction(s) to check for text truncation (`'x'` for horizontal, `'y'` for vertical, `'both'`, or `'none'` to disable) |
-| `handleDialogModals`       | `boolean`                        | `false`               | Whether to handle tooltips within HTML `<dialog>` elements with the `open` attribute (modal dialogs)                   |
-| `placementAttribute`       | `string`                         | `'vueltip-placement'` | HTML attribute name for tooltip placement overrides                                                                    |
-| `keyAttribute`             | `string`                         | `'vueltip-key'`       | HTML attribute name for tooltip identification                                                                         |
-| `truncateAttribute`        | `string`                         | `'vueltip-truncate'`  | HTML attribute name for truncate detection overrides                                                                   |
+| Option                     | Type                             | Default                    | Description                                                                                                            |
+| -------------------------- | -------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `component`                | `Component`                      | Required                   | The Vue component to render as the tooltip                                                                             |
+| `showDelay`                | `number`                         | `0`                        | Delay in milliseconds before the tooltip appears on hover                                                              |
+| `hideDelay`                | `number`                         | `200`                      | Delay in milliseconds before the tooltip disappears when the cursor leaves                                             |
+| `defaultPlacement`         | `Placement`                      | `'top'`                    | Default tooltip placement: `'top'`, `'bottom'`, `'left'`, `'right'`, etc.                                              |
+| `defaultTruncateDetection` | `'x' \| 'y' \| 'both' \| 'none'` | `'both'`                   | Direction(s) to check for text truncation (`'x'` for horizontal, `'y'` for vertical, `'both'`, or `'none'` to disable) |
+| `handleDialogModals`       | `boolean`                        | `false`                    | Whether to handle tooltips within HTML `<dialog>` elements with the `open` attribute (modal dialogs)                   |
+| `placementAttribute`       | `string`                         | `'data-vueltip-placement'` | HTML attribute name for tooltip placement overrides                                                                    |
+| `keyAttribute`             | `string`                         | `'data-vueltip-key'`       | HTML attribute name for tooltip identification                                                                         |
+| `truncateAttribute`        | `string`                         | `'data-vueltip-truncate'`  | HTML attribute name for truncate detection overrides                                                                   |
 
 ### useVueltip Composable Options
 

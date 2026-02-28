@@ -1,9 +1,9 @@
 import type { Options } from './types'
 
 let options: Options = {
-  placementAttribute: 'vueltip-placement',
-  keyAttribute: 'vueltip-key',
-  truncateAttribute: 'vueltip-truncate',
+  placementAttribute: 'data-vueltip-placement',
+  keyAttribute: 'data-vueltip-key',
+  truncateAttribute: 'data-vueltip-truncate',
   showDelay: 0,
   hideDelay: 200,
   handleDialogModals: false,
