@@ -27,11 +27,11 @@ export type TooltipDirective = Directive<
 >
 
 export type Options = {
-  /** @default 'vueltip-placement' */
+  /** @default 'data-vueltip-placement' */
   placementAttribute: string
-  /** @default 'vueltip-key' */
+  /** @default 'data-vueltip-key' */
   keyAttribute: string
-  /** @default 'vueltip-truncate' */
+  /** @default 'data-vueltip-truncate' */
   truncateAttribute: string
   /** @default 0 */
   showDelay: number
