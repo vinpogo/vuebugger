@@ -38,7 +38,7 @@ describe('created hook', () => {
     const el = setupDirective()
     const binding = {
       value: {
-        content: 'Tooltip text',
+        text: 'Tooltip text',
         placement: 'bottom' as const,
       },
     }
@@ -57,7 +57,7 @@ describe('created hook', () => {
     const el = setupDirective()
     const binding = {
       value: {
-        content: 'Text',
+        text: 'Text',
         placement: 'bottom' as const,
       },
     }
@@ -87,7 +87,7 @@ describe('created hook', () => {
     const el = setupDirective()
     const binding = {
       value: {
-        content: 'Text',
+        text: 'Text',
         placement: 'bottom' as const,
       },
       arg: 'left',
@@ -238,13 +238,13 @@ describe('updated hook', () => {
   it('updates placement attribute via object binding', () => {
     const el = setupDirective()
     const binding1 = {
-      value: { content: 'Text', placement: 'top' as const },
+      value: { text: 'Text', placement: 'top' as const },
     }
     vueltipDirective.created?.(el, binding1 as any)
 
     const binding2 = {
       value: {
-        content: 'Text',
+        text: 'Text',
         placement: 'bottom' as const,
       },
     }

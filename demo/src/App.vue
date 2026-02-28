@@ -71,7 +71,7 @@ debug('foobar', { count })
               </button>
               <button
                 v-tooltip="{
-                  content: 'Remove one item',
+                  text: 'Remove one item',
                   placement: 'right',
                 }"
                 class="inline-flex items-center gap-2 rounded-lg border border-rose-500/60 bg-rose-500/10 px-4 py-2 text-sm font-semibold text-rose-200 transition hover:bg-rose-500/20"
@@ -133,7 +133,7 @@ debug('foobar', { count })
           </p>
           <p
             v-tooltip="{
-              content: 'Bottom placement',
+              text: 'Bottom placement',
               placement: 'bottom',
             }"
             class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
@@ -142,7 +142,7 @@ debug('foobar', { count })
           </p>
           <p
             v-tooltip="{
-              content: 'Left placement',
+              text: 'Left placement',
               placement: 'left',
             }"
             class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
@@ -151,7 +151,7 @@ debug('foobar', { count })
           </p>
           <p
             v-tooltip="{
-              content: 'Right placement',
+              text: 'Right placement',
               placement: 'right',
             }"
             class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"

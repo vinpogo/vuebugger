@@ -11,7 +11,7 @@ export interface Content {
 export type Binding =
   | Maybe<string>
   | {
-      content: Maybe<string | Content>
+      text: Maybe<string | Content>
       placement: Placement
     }
 export type Modifier = 'x' | 'y' | 'none' | 'both'
