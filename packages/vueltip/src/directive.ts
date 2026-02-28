@@ -18,10 +18,10 @@ import { ensureKey } from './utils'
 const toContent = (value: Binding): Content => {
   if (value == null) return { text: value }
   if (typeof value === 'string') return { text: value }
-  if (value.content == null) return { text: value.content }
-  if (typeof value.content === 'string')
-    return { text: value.content }
-  return value.content
+  if (value.text == null) return { text: value.text }
+  if (typeof value.text === 'string')
+    return { text: value.text }
+  return value.text
 }
 const extractPlacement = (
   binding: DirectiveBinding<Binding, Modifier, Placement>,

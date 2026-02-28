@@ -121,7 +121,7 @@ Now you can use the `v-tooltip` directive on any element:
 
     <span
       v-tooltip="{
-        content: 'This is a helpful tooltip',
+        text: 'This is a helpful tooltip',
         placement: 'right',
       }"
     >
@@ -178,7 +178,7 @@ v-tooltip="'Tooltip text'"
 
 ```ts
 v-tooltip="{
-  content: 'Tooltip text',
+  text: 'Tooltip text',
   placement: 'right'  // Placement: 'top', 'bottom', 'left', 'right', etc.
 }"
 ```
