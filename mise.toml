@@ -9,9 +9,8 @@ experimental = true
 
 [tasks]
 install = "pnpm install"
-build = "pnpm build"
+build = "pnpm build && pnpm typecheck"
 dev = "pnpm dev"
 test = "pnpm test"
 oxlint = "pnpm oxlint"
 oxfmt = "pnpm oxfmt --check"
-
