@@ -16,6 +16,7 @@
     "build": "pnpm -r build",
     "dev": "pnpm -r --parallel --stream dev",
     "demo": "pnpm --filter demo run dev",
+    "typecheck": "tsc --noEmit",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:publish": "pnpm build && changeset publish"
