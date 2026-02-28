@@ -22,6 +22,7 @@
     "changeset:publish": "pnpm build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
