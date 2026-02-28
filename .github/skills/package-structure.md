@@ -55,7 +55,10 @@ export type { PluginOptions } from './types'
 export { vueltipPlugin } from './plugin'
 export { vueltipDirective } from './directive'
 export { useVueltip } from './composables'
-export type { Placement, Content, Options } from './types'
+export type {
+  PublicPayload,
+  PublicValue,
+} from './types'
 
 // ❌ Do NOT export:
 // export { hoveredElement, setContent } from './state'  // Internal
@@ -98,7 +101,7 @@ packages/*/
 | File Type | Pattern | Export? | Example |
 |-----------|---------|---------|---------|
 | `index.ts` | Public API | Yes, only public | Composables, plugins, directives, types |
-| `types.ts` | All type definitions | Re-export public types from index.ts | `Content`, `Binding`, `Options` |
+| `types.ts` | All type definitions | Re-export public types from index.ts | Public content/value/options types |
 | `[feature].ts` | Feature logic | Only if public API | `debug.ts`, `directive.ts`, `plugin.ts` |
 | `listeners.ts` | Event handlers | No, internal | `onMouseover`, `onMouseout` |
 | `utils.ts` | Helper functions | No, internal | `isTruncated`, `isHtmlElement`, `elementContainsText` |
@@ -116,7 +119,14 @@ packages/*/
 ```typescript
 // src/types.ts
 export type Placement = 'top' | 'bottom' | 'left' | 'right'
-export interface Content { text?: string }
+export interface PublicPayload {
+  text: string | null | undefined
+}
+export type PublicValue =
+  | string
+  | null
+  | undefined
+  | (PublicPayload & { placement?: Placement })
 export interface Options { showDelay: number }
 
 // Keep internal types here too - they stay private unless re-exported
@@ -133,9 +143,17 @@ declare module 'vue' {
 
 ```typescript
 // src/index.ts
-export type { Placement, Content, Options } from './types'
+export type {
+  PublicPayload,
+  PublicValue,
+  Options,
+} from './types'
 // Don't re-export internal types
 ```
+
+> Prefer describing type *roles* (content/value/options,
+> public vs internal) rather than locking docs to exact
+> field names that may change during refactors.
 
 ---
 

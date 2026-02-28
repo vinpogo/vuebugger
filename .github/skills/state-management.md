@@ -12,6 +12,11 @@
 | Type-safe event handlers | Wrapper functions | None (stored ref) | `ensureEventTarget()` |
 | App configuration | Getter functions | None | `getOption()`, `setOptions()` |
 
+> Durability rule: prefer stable patterns over exact
+> literals. Treat concrete default values and exact
+> attribute names as examples unless they are part of
+> documented public API.
+
 ---
 
 ## Decision Tree
@@ -166,13 +171,13 @@ scope.run(() => {
 
 ```typescript
 export const vueltipDirective = {
-  created: (el, binding) => {
-    el.addEventListener('mouseenter', onMouseover)
-    el.addEventListener('focus', onMouseover)
+  created: (el) => {
+    el.addEventListener('eventA', handlerA)
+    el.addEventListener('eventB', handlerB)
   },
   beforeUnmount: (el) => {
-    el.removeEventListener('mouseenter', onMouseover)
-    el.removeEventListener('focus', onMouseover)
+    el.removeEventListener('eventA', handlerA)
+    el.removeEventListener('eventB', handlerB)
   },
 }
 ```
@@ -270,8 +275,9 @@ export const onMouseover = ensureEventTarget((target) => {
 import type { Options } from './types'
 
 let options: Options = {
-  placementAttribute: 'vueltip-placement',
-  keyAttribute: 'vueltip-key',
+  placementAttribute: DEFAULT_PLACEMENT_ATTRIBUTE,
+  keyAttribute: DEFAULT_KEY_ATTRIBUTE,
+  truncateAttribute: DEFAULT_TRUNCATE_ATTRIBUTE,
   showDelay: 0,
   hideDelay: 200,
 }
@@ -288,6 +294,8 @@ export const getOption = <T extends keyof Options>(
 **Critical:**
 - Provide typed getter: `getOption('showDelay')` returns `number`
 - Merge partial options: `{ ...defaults, ...provided }`
+- Keep defaults centralized in one module; avoid
+  hardcoding the same literal in multiple files/docs
 - Keep internal: don't export `options` directly
 - Use in composables/directives to access config
 

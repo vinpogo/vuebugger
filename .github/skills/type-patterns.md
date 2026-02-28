@@ -143,6 +143,20 @@ declare module 'vue' {
 - Extend component props
 - Add module augmentation
 
+**Vueltip custom data augmentation:**
+
+```typescript
+declare module '@vingy/vueltip' {
+  interface CustomVueltipData {
+    userId?: number
+    severity?: 'info' | 'warning' | 'error'
+  }
+}
+
+// Now content.custom is strongly typed:
+// v-tooltip="{ text: 'Profile', custom: { userId: 1 } }"
+```
+
 **Anti-patterns:**
 - ❌ Ambient declarations for private types
 - ❌ Multiple ambient declarations in different files (consolidate in types.ts)
