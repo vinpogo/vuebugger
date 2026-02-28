@@ -2,7 +2,7 @@ import type {
   Placement,
   UseFloatingOptions,
 } from '@floating-ui/vue'
-import { Maybe } from '@vingy/shared/types'
+import type { Maybe } from '@vingy/shared/types'
 import type { Directive, ShallowRef } from 'vue'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
