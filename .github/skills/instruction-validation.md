@@ -7,6 +7,7 @@
 | Instructions match codebase | Read source files, compare patterns | Update instructions with real code examples |
 | Examples are current | Check file links still exist | Update links or remove outdated examples |
 | Patterns are cohesive | Cross-reference skills for consistency | Consolidate or clarify conflicting advice |
+| Instructions overfit internals | Scan for exact literals and private names | Replace with stable pattern + one concrete reference |
 | Anti-patterns are clear | Scan all ❌ marked items | Ensure each has explanation and correct approach |
 | Decision trees are accurate | Follow trees on real tasks | Add missing branches, remove irrelevant ones |
 | Completeness coverage | Map all file types and workflows | Add missing patterns, remove duplicates |
@@ -81,6 +82,7 @@ cat .github/skills/state-management.md | grep -A 10 "Event Handler Wrapper"
 | Same pattern explained differently | Search both skills for same keyword | Pick clearer explanation, remove duplicate |
 | Contradictory advice | Search for opposing ❌ markings | Determine which is correct, remove error |
 | Different terminology | Search for synonyms across skills | Standardize term usage everywhere |
+| Over-specific literals | Search defaults/attribute names in docs | Keep literals only when part of public API |
 | Missing links | Grep for file references | Verify all links exist, update if moved |
 | Outdated examples | Check line counts match | Update example code to match current file |
 
@@ -105,6 +107,7 @@ wc -l packages/vueltip/src/state.ts  # Should match any line ranges in examples
 2. Are line numbers accurate if provided?
 3. Would copying the code work as-is?
 4. Are imports complete and correct?
+5. Is this showing a durable pattern, not an unstable literal?
 
 **Example check:**
 
@@ -194,6 +197,7 @@ Before committing changes to any skill:
 - [ ] **Clarity**: Language is direct and unambiguous
 - [ ] **Consistency**: Terms match other skills
 - [ ] **Linkage**: All file links still valid
+- [ ] **Durability**: Guidance survives field/default renames
 - [ ] **Anti-patterns**: Each ❌ has ✅ fix shown
 - [ ] **Decision trees**: All branches covered
 - [ ] **Practicality**: Real-world applicability verified
@@ -258,6 +262,16 @@ done
 ---
 
 ## Red Flags: Patterns to Catch
+
+**Red Flag 0: Docs mirror private internals too closely**
+```
+Instruction includes exact defaults and private key names
+↓
+Small refactor causes many skill edits
+↓
+Fix by documenting invariant behavior and linking to source
+for current literals
+```
 
 **Red Flag 1: Example code doesn't compile**
 ```typescript

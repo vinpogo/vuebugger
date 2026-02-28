@@ -125,24 +125,37 @@ export const vueltipPlugin = {
 **directive.ts:** Handles lifecycle + event listener setup/teardown
 
 ```typescript
+const LISTENERS: [
+  event: string,
+  handler: EventListener,
+][] = [
+  ['eventA', onEnter],
+  ['eventB', onLeave],
+]
+
 export const vueltipDirective = {
   created: (el, binding) => {
     const key = generateKey()
+    setContent(key, toContent(binding.value))
     el.setAttribute(getOption('keyAttribute'), key)
-    setContent(key, toContent(binding.value))  // Module-level state
-    el.addEventListener('mouseenter', onMouseover)  // Stored reference
-    el.addEventListener('mouseleave', onMouseout)
+    for (const [event, handler] of LISTENERS) {
+      el.addEventListener(event, handler)
+    }
   },
   updated: (el, binding) => {
-    // Re-sync content/placement on binding change
+    // Re-sync state/attributes on binding change
   },
   beforeUnmount: (el) => {
-    deleteContent(el.getAttribute(getOption('keyAttribute')))
-    el.removeEventListener('mouseenter', onMouseover)  // Must match
-    el.removeEventListener('mouseleave', onMouseout)
+    ensureKey(el, (key) => deleteContent(key))
+    for (const [event, handler] of LISTENERS) {
+      el.removeEventListener(event, handler)
+    }
   },
 }
 ```
+
+**Durability note:** Keep this as a lifecycle template.
+Event names and attribute defaults can evolve.
 
 ### Composable Structure
 
@@ -329,6 +342,7 @@ Enforces:
 - [ ] `pnpm test` passes
 - [ ] `pnpm lint` passes
 - [ ] `pnpm format` run
+- [ ] `pnpm typecheck` passes
 - [ ] Tests added for new code
 - [ ] `pnpm changeset` created
 - [ ] Demo updated (if user-facing)
