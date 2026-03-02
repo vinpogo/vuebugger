@@ -8,13 +8,13 @@ catalogs:
     '@changesets/cli': ^2.29.8
     '@floating-ui/vue': ^1.1.10
     '@tsconfig/node24': ^24.0.4
-    '@types/node': ^25.0.10
+    '@types/node': ^24.11.0
     '@vitejs/plugin-vue': ^6.0.3
     '@vitest/browser-playwright': 4.0.18
     '@vue/devtools-api': ^8.0.5
     '@vue/tsconfig': ^0.8.1
-    oxfmt: ^0.34.0
-    oxlint: ^1.49.0
+    oxfmt: ^0.36.0
+    oxlint: ^1.51.0
     pinia: ^3.0.4
     playwright: ^1.58.2
     tsdown: ^0.20.3
