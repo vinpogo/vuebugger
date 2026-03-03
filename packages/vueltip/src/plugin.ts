@@ -9,14 +9,21 @@ export const vueltipPlugin = {
   ) => {
     const { component, ...rest } = options
     setOptions(rest)
+
     if (!component) return
-
-    const container = document.createElement('div')
-    container.id = '__vueltip_root__'
-    document.body.appendChild(container)
-
-    const tooltipApp = createApp(component)
-    tooltipApp._context = app._context // Share the plugin context
-    tooltipApp.mount(container)
+    createVueltipApp(component, app._context)
   },
+}
+
+function createVueltipApp(
+  component: Component,
+  context: App['_context'],
+) {
+  const container = document.createElement('div')
+  container.id = '__vueltip_root__'
+  document.body.appendChild(container)
+
+  const tooltipApp = createApp(component)
+  tooltipApp._context = context // Share the plugin context
+  tooltipApp.mount(container)
 }
