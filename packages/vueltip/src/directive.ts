@@ -49,6 +49,12 @@ const truncationDirection = (
   return getOption('defaultTruncateDetection')
 }
 
+/**
+ * @example
+ * ```ts
+ * createApp().use('tooltip', vueltipDirective)
+ * ```
+ */
 export const vueltipDirective = {
   updated: (el, binding) => {
     ensureKey(el, (key) => {

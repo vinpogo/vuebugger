@@ -11,6 +11,9 @@ let options: Options = {
   defaultPlacement: 'top',
 }
 
+/**
+ * Change default options for the directive.
+ */
 export const setOptions = (opts?: Partial<Options>) => {
   options = { ...options, ...opts }
 }

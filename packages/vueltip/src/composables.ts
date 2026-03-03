@@ -24,6 +24,11 @@ const sideMap: Record<string, string> = {
   left: 'right',
 }
 
+/**
+ * This composable allows you to bind the directive to your own tooltip implementation.
+ *
+ * See docs for examples.
+ */
 export const useVueltip = ({
   tooltipElement,
   arrowElement,
