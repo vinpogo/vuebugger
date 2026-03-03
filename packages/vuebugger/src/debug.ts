@@ -17,7 +17,7 @@ export const debug = <T extends Record<string, any>>(
   groupId: VuebuggerEntry['groupId'],
   state: T,
 ): T => {
-  if (!import.meta.env.DEV) return state
+  if (!import.meta.env?.DEV) return state
 
   const instance = getCurrentInstance()
 
