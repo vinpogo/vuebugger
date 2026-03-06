@@ -2,6 +2,11 @@ import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  define: {
+    __VUE_OPTIONS_API__: false,
+    __VUE_PROD_DEVTOOLS__: false,
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+  },
   test: {
     reporters: process.env.GITHUB_ACTIONS
       ? ['default', 'github-actions']
