@@ -1,9 +1,14 @@
 import { describe, expect, it, vi } from 'vitest'
 import { vueltipDirective } from './directive'
 import { setOptions } from './options'
-import { getContent } from './state'
+import {
+  debouncedHoveredElement,
+  getContent,
+  hoveredElement,
+} from './state'
 
 const setupDirective = () => {
+  vi.useFakeTimers()
   const el = document.createElement('div')
   document.body.appendChild(el)
   setOptions({
@@ -15,6 +20,7 @@ const setupDirective = () => {
 }
 
 const teardownDirective = (el: HTMLElement) => {
+  vi.useRealTimers()
   el.remove()
 }
 
@@ -343,5 +349,84 @@ describe('beforeUnmount hook', () => {
 
     removeEventListenerSpy.mockRestore()
     teardownDirective(el)
+  })
+
+  it('unsets the hoveredElement and debouncedHoveredElement -> tooltip disappears immediately', async () => {
+    const el = setupDirective()
+    const binding = { value: 'Text' }
+    vueltipDirective.created?.(el, binding as any)
+
+    // hover element
+    el.dispatchEvent(new MouseEvent('mouseenter'))
+    await vi.runAllTimersAsync()
+
+    expect(debouncedHoveredElement.value).toBe(el)
+
+    vueltipDirective.beforeUnmount?.(el)
+
+    expect(hoveredElement.value).toBeUndefined()
+    expect(debouncedHoveredElement.value).toBeUndefined()
+
+    teardownDirective(el)
+  })
+
+  it('does not show tooltip if unmounted while showDelay debounce is pending', async () => {
+    const el = setupDirective()
+    const binding = { value: 'Text' }
+    vueltipDirective.created?.(el, binding as any)
+
+    el.dispatchEvent(new MouseEvent('mouseenter'))
+
+    expect(hoveredElement.value).toBe(el)
+    expect(debouncedHoveredElement.value).toBeUndefined()
+
+    vueltipDirective.beforeUnmount?.(el)
+
+    expect(hoveredElement.value).toBeUndefined()
+    expect(debouncedHoveredElement.value).toBeUndefined()
+
+    await vi.runAllTimersAsync()
+
+    expect(hoveredElement.value).toBeUndefined()
+    expect(debouncedHoveredElement.value).toBeUndefined()
+
+    teardownDirective(el)
+  })
+
+  it('clears tooltip when element B unmounts during showDelay after hovering during hideDelay of element A', async () => {
+    const el1 = setupDirective()
+    const el2 = setupDirective()
+
+    const binding = { value: 'Text' }
+
+    vueltipDirective.created?.(el1, binding as any)
+    vueltipDirective.created?.(el2, binding as any)
+
+    el1.dispatchEvent(new MouseEvent('mouseenter'))
+    await vi.runAllTimersAsync()
+
+    expect(debouncedHoveredElement.value).toBe(el1)
+
+    el1.dispatchEvent(new MouseEvent('mouseleave'))
+
+    expect(hoveredElement.value).toBeUndefined()
+    expect(debouncedHoveredElement.value).toBe(el1)
+
+    vi.advanceTimersByTime(50)
+    el2.dispatchEvent(new MouseEvent('mouseenter'))
+
+    expect(hoveredElement.value).toBe(el2)
+    expect(debouncedHoveredElement.value).toBe(el1)
+
+    vueltipDirective.beforeUnmount?.(el2)
+
+    expect(hoveredElement.value).toBeUndefined()
+
+    await vi.runAllTimersAsync()
+
+    expect(debouncedHoveredElement.value).toBeUndefined()
+
+    teardownDirective(el1)
+    el2.remove()
   })
 })

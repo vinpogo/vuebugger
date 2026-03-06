@@ -4,6 +4,8 @@ import { ref, watch } from 'vue'
 import { getOption } from './options'
 import type { Content } from './types'
 
+let timerId: Maybe<ReturnType<typeof setTimeout>>
+
 export const tooltipPlacement = ref<Placement>('top')
 export const debouncedTooltipPlacement =
   ref<Placement>('top')
@@ -11,6 +13,18 @@ export const debouncedTooltipPlacement =
 export const hoveredElement = ref<Maybe<HTMLElement>>()
 export const debouncedHoveredElement =
   ref<Maybe<HTMLElement>>()
+export const forceClearHoveredElement = (
+  el: HTMLElement,
+) => {
+  if (
+    el !== debouncedHoveredElement.value &&
+    el !== hoveredElement.value
+  )
+    return
+  hoveredElement.value = undefined
+  debouncedHoveredElement.value = undefined
+  if (timerId) clearTimeout(timerId)
+}
 
 const contentMap = ref(new Map<string, Content>())
 export const getContent = (key: string) =>
@@ -24,7 +38,6 @@ export const generateKey = () => crypto.randomUUID()
 export const tooltipKey = ref<Maybe<string>>()
 export const tooltipContent = ref<Maybe<Content>>()
 
-let timerId: Maybe<ReturnType<typeof setTimeout>>
 watch(
   [
     tooltipKey,
