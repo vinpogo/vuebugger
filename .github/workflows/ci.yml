@@ -30,8 +30,16 @@ jobs:
       - run: mise run install --frozen-lockfile
         if: ${{ env.SKIP_CI != 'true' }}
 
-      - name: Install Playwright Browsers
+      - name: Cache Playwright Browsers
+        id: playwright-cache
         if: ${{ env.SKIP_CI != 'true' && matrix.task == 'test' }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install Playwright Browsers
+        if: ${{ env.SKIP_CI != 'true' && matrix.task == 'test' && steps.playwright-cache.outputs.cache-hit != 'true' }}
         run: pnpm exec playwright install --with-deps chromium
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 0
