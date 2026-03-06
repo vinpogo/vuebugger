@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 2.0.1
+
+### Patch Changes
+
+- [#45](https://github.com/vinpogo/vue-utils/pull/45) [`c36c8c8`](https://github.com/vinpogo/vue-utils/commit/c36c8c8b66121a5a993900c48270e034b5a5ebeb) Thanks [@vinpogo](https://github.com/vinpogo)! - fix: tooltip disappears automatically when hovered element unmounts
+
 ## 2.0.0
 
 ### Major Changes
