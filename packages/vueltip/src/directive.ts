@@ -4,6 +4,7 @@ import { onMouseout, onMouseover } from './listeners'
 import { getOption } from './options'
 import {
   deleteContent,
+  forceClearHoveredElement,
   generateKey,
   setContent,
 } from './state'
@@ -85,6 +86,8 @@ export const vueltipDirective = {
   },
   beforeUnmount: (el) => {
     ensureKey(el, (key) => deleteContent(key))
+
+    forceClearHoveredElement(el)
 
     el.removeEventListener('mouseenter', onMouseover)
     el.removeEventListener('focus', onMouseover)
