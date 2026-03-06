@@ -10,6 +10,10 @@ jobs:
     env:
       SKIP_CI: ${{ startsWith(github.head_ref, 'changeset-release/') }}
     steps:
+      - name: Skip redundant CI on release PRs
+        if: ${{ env.SKIP_CI == 'true' }}
+        run: echo "Skipping ${{ matrix.task }} for changeset release PR"
+
       - uses: actions/checkout@v4
         if: ${{ env.SKIP_CI != 'true' }}
 
