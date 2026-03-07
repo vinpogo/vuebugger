@@ -142,21 +142,21 @@ debug('foobar', { count })
           </p>
           <p
             v-tooltip="{
-              text: 'Left placement',
-              placement: 'left',
-            }"
-            class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
-          >
-            Hover over me (left)
-          </p>
-          <p
-            v-tooltip="{
               text: 'Right placement',
               placement: 'right',
             }"
             class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
           >
             Hover over me (right)
+          </p>
+          <p
+            v-tooltip="{
+              text: 'Left placement',
+              placement: 'left',
+            }"
+            class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
+          >
+            Hover over me (left)
           </p>
           <p
             v-tooltip="{
