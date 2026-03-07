@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 2.1.0
+
+### Minor Changes
+
+- [#48](https://github.com/vinpogo/vue-utils/pull/48) [`98250aa`](https://github.com/vinpogo/vue-utils/commit/98250aa50c30cfc2a479b7072b2b47e5dd0568c1) Thanks [@vinpogo](https://github.com/vinpogo)! - Add themable basic tooltip component for a quicker start
+
 ## 2.0.1
 
 ### Patch Changes
