@@ -139,6 +139,65 @@ Now you can use the `v-tooltip` directive on any element:
 
 See the demo app in [demo/](../../demo/).
 
+## Basic Tooltip Component
+
+Vueltip provides a pre-built `BasicTooltip` component with default styling that you can use out of the box:
+
+```ts
+import {
+  vueltipPlugin,
+  vueltipDirective,
+  BasicTooltip,
+} from '@vingy/vueltip'
+import '@vingy/vueltip/basicTooltip.css'
+
+const app = createApp(App)
+
+app
+  .use(vueltipPlugin, {
+    component: BasicTooltip,
+  })
+  .directive('tooltip', vueltipDirective)
+```
+
+### Theming the Basic Tooltip
+
+The `BasicTooltip` component uses CSS custom properties for theming. You can customize it in two ways:
+
+**1. Use the default theme:**
+
+Import the provided CSS file for automatic light/dark mode support:
+
+```ts
+import '@vingy/vueltip/basicTooltip.css'
+```
+
+**2. Override with custom CSS variables:**
+
+Define your own theme by setting CSS variables:
+
+```css
+.vueltip-theme {
+  --vueltip-bg: hotpink;
+  --vueltip-text: white;
+  --vueltip-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --vueltip-border-radius: 8px;
+  --vueltip-padding: 8px 12px;
+  --vueltip-font-size: 16px;
+  --vueltip-font-weight: 500;
+}
+```
+
+**Available CSS variables:**
+
+- `--vueltip-bg`: Background color
+- `--vueltip-text`: Text color
+- `--vueltip-shadow`: Box shadow
+- `--vueltip-border-radius`: Border radius
+- `--vueltip-padding`: Content padding
+- `--vueltip-font-size`: Font size
+- `--vueltip-font-weight`: Font weight
+
 ## Options
 
 ### Plugin Options
