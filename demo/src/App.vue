@@ -126,7 +126,7 @@ debug('foobar', { count })
         </h2>
         <div class="grid gap-4 sm:grid-cols-2">
           <p
-            v-tooltip="'Simple text tooltip'"
+            v-tooltip="'Top placement'"
             class="rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 shadow-sm transition hover:border-slate-500"
           >
             Hover over me (top)
