@@ -1,0 +1,42 @@
+.vueltip-theme {
+  isolation: isolate;
+
+  --vueltip-bg: rgb(241, 245, 249);
+  --vueltip-text: rgb(15, 23, 42);
+  --vueltip-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --vueltip-border-radius: 4px;
+  --vueltip-padding: 4px 8px;
+  --vueltip-font-size: 14px;
+  --vueltip-font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .vueltip-theme {
+    --vueltip-bg: rgb(30, 41, 59);
+    --vueltip-text: rgb(248, 250, 252);
+    --vueltip-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.5),
+      0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.vueltip-arrow {
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  background: var(--vueltip-bg);
+}
+
+.vueltip-content {
+  position: relative;
+  z-index: 10;
+  border-radius: var(--vueltip-border-radius);
+  background: var(--vueltip-bg);
+  padding: var(--vueltip-padding);
+  font-size: var(--vueltip-font-size);
+  font-weight: var(--vueltip-font-weight);
+  color: var(--vueltip-text);
+  box-shadow: var(--vueltip-shadow);
+}

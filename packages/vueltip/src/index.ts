@@ -1,3 +1,4 @@
+export { BasicTooltip } from './basicTooltip.component'
 export { useVueltip } from './composables'
 export { vueltipDirective } from './directive'
 export { setOptions } from './options'

@@ -18,14 +18,17 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/basicTooltip.css"
+  ],
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
-    }
+    },
+    "./basicTooltip.css": "./dist/basicTooltip.css"
   },
   "publishConfig": {
     "access": "public"
