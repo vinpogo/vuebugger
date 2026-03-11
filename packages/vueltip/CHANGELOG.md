@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 2.1.1
+
+### Patch Changes
+
+- [#50](https://github.com/vinpogo/vue-utils/pull/50) [`ee02b86`](https://github.com/vinpogo/vue-utils/commit/ee02b8652219c407e0956b91dea8f38eadb4b5c5) Thanks [@vinpogo](https://github.com/vinpogo)! - ref: vueltip no longer creates its own app to render the tooltip
+
 ## 2.1.0
 
 ### Minor Changes
