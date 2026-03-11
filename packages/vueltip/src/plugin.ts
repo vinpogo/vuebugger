@@ -1,4 +1,4 @@
-import { App, Component, createApp } from 'vue'
+import { App, Component, createVNode, render } from 'vue'
 import { setOptions } from './options'
 import type { Options } from './types'
 
@@ -15,8 +15,8 @@ export const vueltipPlugin = {
     container.id = '__vueltip_root__'
     document.body.appendChild(container)
 
-    const tooltipApp = createApp(component)
-    tooltipApp._context = app._context // Share the plugin context
-    tooltipApp.mount(container)
+    const vnode = createVNode(component)
+    vnode.appContext = app._context
+    render(vnode, container)
   },
 }
