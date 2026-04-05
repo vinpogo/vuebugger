@@ -20,6 +20,11 @@ export type DebugOptions = {
   enable?: MaybeRefOrGetter<boolean>
 }
 
+export const moduleScopes = new Map<
+  string,
+  ReturnType<typeof effectScope>
+>()
+
 const createDebugScope = <T extends Record<string, any>>(
   groupId: VuebuggerEntry['groupId'],
   state: T,
@@ -41,11 +46,24 @@ const createDebugScope = <T extends Record<string, any>>(
     debugState: state,
   }
 
-  const scope = getCurrentScope() ?? effectScope()
-  scope.run(() => {
-    onScopeDispose(() => remove(entry))
-    run(entry)
-  })
+  const currentScope = getCurrentScope()
+
+  if (currentScope) {
+    currentScope.run(() => {
+      onScopeDispose(() => remove(entry))
+      run(entry)
+    })
+  } else {
+    const existing = moduleScopes.get(groupId)
+    if (existing) existing.stop()
+
+    const scope = effectScope()
+    moduleScopes.set(groupId, scope)
+    scope.run(() => {
+      onScopeDispose(() => remove(entry))
+      run(entry)
+    })
+  }
 }
 
 export const debug = <T extends Record<string, any>>(
