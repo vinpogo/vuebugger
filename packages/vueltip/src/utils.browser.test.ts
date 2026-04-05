@@ -117,7 +117,9 @@ describe('ensureKey', () => {
     setOptions({ keyAttribute: 'tooltip-key' })
 
     el.setAttribute('tooltip-key', 'test-key')
-    const fn = vi.fn((key: string) => key)
+    const fn = vi.fn<(key: string) => string>(
+      (key: string) => key,
+    )
 
     ensureKey(el, fn)
 
@@ -128,7 +130,7 @@ describe('ensureKey', () => {
     const el = document.createElement('div')
     setOptions({ keyAttribute: 'tooltip-key' })
 
-    const fn = vi.fn()
+    const fn = vi.fn<() => void>()
     ensureKey(el, fn)
 
     expect(fn).not.toHaveBeenCalled()
@@ -138,7 +140,9 @@ describe('ensureKey', () => {
     const el = document.createElement('div')
     setOptions({ keyAttribute: 'custom-key' })
     el.setAttribute('custom-key', 'my-key')
-    const fn = vi.fn((key: string) => key)
+    const fn = vi.fn<(key: string) => string>(
+      (key: string) => key,
+    )
 
     ensureKey(el, fn)
 
