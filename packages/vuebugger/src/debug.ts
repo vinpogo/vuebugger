@@ -3,8 +3,10 @@ import {
   getCurrentInstance,
   getCurrentScope,
   onScopeDispose,
+  toValue,
   watch,
 } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
 
 import { remove, upsert } from './registry'
 import type { VuebuggerEntry } from './types'
@@ -14,17 +16,15 @@ export const setUidGenerator = (fn: () => string) => {
   getUid = fn
 }
 
-export const debug = <T extends Record<string, any>>(
+export type DebugOptions = {
+  enable?: MaybeRefOrGetter<boolean>
+}
+
+const createDebugScope = <T extends Record<string, any>>(
   groupId: VuebuggerEntry['groupId'],
   state: T,
-): T => {
-  if (
-    typeof __ENABLE_VUEBUGGER__ === 'undefined'
-      ? !import.meta.env?.DEV
-      : !__ENABLE_VUEBUGGER__
-  )
-    return state
-
+  run: (entry: VuebuggerEntry) => void,
+) => {
   const instance = getCurrentInstance()
 
   const componentName =
@@ -33,33 +33,53 @@ export const debug = <T extends Record<string, any>>(
     'No component'
   const uid = `${componentName}/${groupId}-${getUid()}`
 
+  const entry: VuebuggerEntry = {
+    groupId,
+    uid,
+    componentName,
+    componentInstance: instance,
+    debugState: state,
+  }
+
   const scope = getCurrentScope() ?? effectScope()
   scope.run(() => {
-    onScopeDispose(() =>
-      remove({
-        groupId,
-        uid,
-        componentName,
-        componentInstance: instance,
-        debugState: state,
-      }),
-    )
-    watch(
-      () => state,
-      (value, _) => {
-        upsert({
-          groupId,
-          uid,
-          componentName,
-          componentInstance: instance,
-          debugState: value,
-        })
-      },
-      {
-        immediate: true,
-        deep: true,
-      },
-    )
+    onScopeDispose(() => remove(entry))
+    run(entry)
   })
+}
+
+export const debug = <T extends Record<string, any>>(
+  groupId: VuebuggerEntry['groupId'],
+  state: T,
+  options?: DebugOptions,
+): T => {
+  if (
+    typeof __ENABLE_VUEBUGGER__ === 'undefined'
+      ? !import.meta.env?.DEV
+      : !__ENABLE_VUEBUGGER__
+  )
+    return state
+
+  createDebugScope(groupId, state, (entry) => {
+    if (options?.enable === undefined) {
+      watch(
+        () => state,
+        (value) => {
+          upsert({ ...entry, debugState: value })
+        },
+        { immediate: true, deep: true },
+      )
+    } else {
+      watch(
+        [() => toValue(options.enable), () => state],
+        ([isActive]) => {
+          if (isActive) upsert(entry)
+          else remove(entry)
+        },
+        { immediate: true, deep: true },
+      )
+    }
+  })
+
   return state
 }
