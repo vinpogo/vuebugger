@@ -5,7 +5,6 @@ import type {
 import type { Maybe } from '@vingy/shared/types'
 import type { Directive, ShallowRef } from 'vue'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface CustomVueltipData {}
 
 export interface Content {
