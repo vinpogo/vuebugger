@@ -1,67 +1,40 @@
 # Testing Decisions
 
-There are 2 different test types available unit tests `.unit.test.ts`, and browser tests `.browser.test.ts`.
+## Test Type
 
-## When to use what test type?
+- DOM or browser APIs involved → `.browser.test.ts`
+- Everything else → `.unit.test.ts`
 
-`.browser.test.ts` are to be used whenever the code in question relies on either the DOM or some browser APIs. In any other case `.unit.test.ts` should be used.
+Co-locate test files next to source. One file per environment. Never mix.
 
+## No Vitest Hooks
 
-## Styleguide
+Use explicit setup/teardown functions instead of `beforeEach`/`afterEach`.
 
-### Test File Location & Naming
-
-Co-locate test files adjacent to source:
-
-```
-src/
-  my-feature.ts
-  my-feature.unit.test.ts      # Node environment
-  my-feature.browser.test.ts    # Browser environment
-```
-
-**Rule:** One test file per environment. Don't mix unit + browser in one file.
-
-### Always use explicit functions, never vitest hooks
-
-Vitest hooks make it harder to read tests. Instead, extract the hooks content into functions which are called within the tests.
-
-```typescript
-// ✅ Explicit setup function
-const setupTest = () => {
+```ts
+const setup = () => {
   const el = document.createElement('div')
   document.body.appendChild(el)
-  setOptions({ ... })
   return el
 }
 
-// ✅ Explicit teardown function
-const teardownTest = (el: HTMLElement) => {
+const teardown = (el: HTMLElement) => {
   el.remove()
   resetState()
 }
 
-// ✅ Use in each test
 it('does something', () => {
-  const el = setupTest()
-  // ... test code
-  teardownTest(el)
+  const el = setup()
+  // ...
+  teardown(el)
 })
-
-// ❌ Don't do this
-beforeEach(() => { ... })
-afterEach(() => { ... })
 ```
 
 ## Running Tests
 
 ```bash
-pnpm test --run                     # All tests (unit + browser)
-pnpm vitest --run --project unit    # Only unit tests
-pnpm vitest --run --project browser # Only browser tests
-pnpm vitest --run src/my.unit.test.ts  # Single test file
+mise run test                                              # all
+mise exec -- pnpm vitest --run --project unit             # unit only
+mise exec -- pnpm vitest --run --project browser          # browser only
+mise exec -- pnpm vitest --run src/my.unit.test.ts        # single file
 ```
-
-## Documentation
-
-See [vitest.config.ts](../../vitest.config.ts) for configuration.
