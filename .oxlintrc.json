@@ -1,10 +1,18 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": null,
+  "plugins": [
+    "eslint",
+    "typescript",
+    "oxc",
+    "vue",
+    "promise",
+    "import",
+    "jsdoc",
+    "vitest"
+  ],
   "categories": {},
   "rules": {
-    "import/no-cycle": "error",
-    "import/no-unused-modules": "warn"
+    "import/no-cycle": "error"
   },
   "settings": {
     "jsdoc": {

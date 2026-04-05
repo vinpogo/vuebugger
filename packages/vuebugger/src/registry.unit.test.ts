@@ -7,9 +7,9 @@ import {
   upsert,
 } from './registry'
 
-const mockA = vi.fn()
-const mockB = vi.fn()
-const mockC = vi.fn()
+const mockA = vi.fn<() => void>()
+const mockB = vi.fn<() => void>()
+const mockC = vi.fn<() => void>()
 onUpdate(() => {
   mockA()
   mockB()

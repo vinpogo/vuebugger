@@ -131,8 +131,8 @@ test('getInspectorTree filters by uid', () => {
 
 test('getInspectorState for individual entry', () => {
   const mockApi = {
-    highlightElement: vi.fn(),
-    unhighlightElement: vi.fn(),
+    highlightElement: vi.fn<() => void>(),
+    unhighlightElement: vi.fn<() => void>(),
   } as unknown as DevtoolsApi
 
   const mockEntry = {
@@ -195,8 +195,8 @@ test('getInspectorState for individual entry', () => {
 
 test('getInspectorState for group entry', () => {
   const mockApi = {
-    highlightElement: vi.fn(),
-    unhighlightElement: vi.fn(),
+    highlightElement: vi.fn<() => void>(),
+    unhighlightElement: vi.fn<() => void>(),
   } as unknown as DevtoolsApi
 
   const mockEntry1 = {
@@ -292,7 +292,7 @@ test('editInspectorState for existent entry', () => {
     debugState,
   })
 
-  const setMock = vi.fn()
+  const setMock = vi.fn<() => void>()
 
   const payload: DevtoolsApiHandlerPayload<'editInspectorState'> =
     {
@@ -325,7 +325,7 @@ test('editInspectorState for non-existent entry', () => {
     debugState: { value: computed(() => 23) },
   })
 
-  const setMock = vi.fn()
+  const setMock = vi.fn<() => void>()
 
   const payload: DevtoolsApiHandlerPayload<'editInspectorState'> =
     {
