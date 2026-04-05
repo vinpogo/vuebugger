@@ -1,5 +1,11 @@
 # @vingy/vueltip
 
+## 2.2.0
+
+### Minor Changes
+
+- [#52](https://github.com/vinpogo/vue-utils/pull/52) [`eb3f6fd`](https://github.com/vinpogo/vue-utils/commit/eb3f6fde71bd001d33c58d98569e9c85494f2046) Thanks [@vinpogo](https://github.com/vinpogo)! - feat: close tooltip on `Esc`
+
 ## 2.1.1
 
 ### Patch Changes
