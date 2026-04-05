@@ -6,6 +6,7 @@ import {
   nextTick,
   ref,
 } from 'vue'
+
 import { useVueltip } from './composables'
 import {
   debouncedHoveredElement,

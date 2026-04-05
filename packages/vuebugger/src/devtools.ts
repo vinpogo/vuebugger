@@ -1,6 +1,7 @@
 import { setupDevToolsPlugin } from '@vue/devtools-api'
 import type { App } from 'vue'
 import { isReadonly, toValue } from 'vue'
+
 import { INSPECTOR_ID, TIMELINE_ID } from './constants'
 import { byGroupId, byUid, onUpdate } from './registry'
 import type {

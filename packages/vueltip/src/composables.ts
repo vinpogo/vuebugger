@@ -8,6 +8,7 @@ import {
 } from '@floating-ui/vue'
 import type { Maybe } from '@vingy/shared/types'
 import { computed, type StyleValue, watch } from 'vue'
+
 import { getOption } from './options'
 import {
   debouncedHoveredElement,

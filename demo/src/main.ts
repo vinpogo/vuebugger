@@ -5,6 +5,7 @@ import {
 } from '@vingy/vueltip'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
+
 import App from './App.vue'
 import Tooltip from './Tooltip.vue'
 

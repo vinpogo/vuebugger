@@ -1,6 +1,7 @@
 import type { Placement } from '@floating-ui/vue'
 import type { Maybe } from '@vingy/shared/types'
 import { ref, watch } from 'vue'
+
 import { getOption } from './options'
 import type { Content } from './types'
 
