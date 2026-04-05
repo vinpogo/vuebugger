@@ -5,6 +5,7 @@ import {
   onScopeDispose,
   watch,
 } from 'vue'
+
 import { remove, upsert } from './registry'
 import type { VuebuggerEntry } from './types'
 
@@ -17,7 +18,12 @@ export const debug = <T extends Record<string, any>>(
   groupId: VuebuggerEntry['groupId'],
   state: T,
 ): T => {
-  if (!import.meta.env?.DEV) return state
+  if (
+    typeof __ENABLE_VUEBUGGER__ === 'undefined'
+      ? !import.meta.env?.DEV
+      : !__ENABLE_VUEBUGGER__
+  )
+    return state
 
   const instance = getCurrentInstance()
 
