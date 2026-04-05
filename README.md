@@ -1,5 +1,18 @@
 # Vue utilities
 
+## Composables
+
+A collection of useful Vue composables.
+
+- Package: [packages/composables](packages/composables)
+- Docs: [packages/composables/README.md](packages/composables/README.md)
+
+Install:
+
+```bash
+pnpm add @vingy/composables
+```
+
 ## Vuebugger
 
 Vue Devtools helper for debugging composables and reactive state. Add `debug()` to expose values in Devtools without production overhead.
