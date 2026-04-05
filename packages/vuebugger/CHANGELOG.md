@@ -1,5 +1,17 @@
 # @vingy/vuebugger
 
+## 0.4.0
+
+### Minor Changes
+
+- [#52](https://github.com/vinpogo/vue-utils/pull/52) [`98dd281`](https://github.com/vinpogo/vue-utils/commit/98dd281d6634eea4a0c0e4c8ecdc5d71bcd97947) Thanks [@vinpogo](https://github.com/vinpogo)! - feat: @vingy/vuebugger can now be bundled for production builds
+
+- [#52](https://github.com/vinpogo/vue-utils/pull/52) [`4077e4f`](https://github.com/vinpogo/vue-utils/commit/4077e4f7204c68c024e55e5f02ea6870b68930bc) Thanks [@vinpogo](https://github.com/vinpogo)! - feat: add possibility to disable debugging via options
+
+### Patch Changes
+
+- [#52](https://github.com/vinpogo/vue-utils/pull/52) [`c721a27`](https://github.com/vinpogo/vue-utils/commit/c721a2749e494eb216c3e12e4469b48321579764) Thanks [@vinpogo](https://github.com/vinpogo)! - fix: module level debug calls no longer leak on HMR
+
 ## 0.3.4
 
 ### Patch Changes
