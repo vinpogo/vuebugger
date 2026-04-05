@@ -1,4 +1,5 @@
 import { defineComponent, h, useTemplateRef } from 'vue'
+
 import { useVueltip } from './composables'
 
 export const BasicTooltip = defineComponent(() => {

@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+
 import { setOptions } from './options'
 import {
   elementContainsText,

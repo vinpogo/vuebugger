@@ -1,5 +1,6 @@
 import { Placement } from '@floating-ui/vue'
 import { DirectiveBinding } from 'vue'
+
 import { onMouseout, onMouseover } from './listeners'
 import { getOption } from './options'
 import {

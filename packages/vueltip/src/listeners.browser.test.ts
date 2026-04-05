@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { onMouseout, onMouseover } from './listeners'
 import { setOptions } from './options'
 import {

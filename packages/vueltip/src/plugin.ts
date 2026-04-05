@@ -1,4 +1,5 @@
 import { App, Component, createVNode, render } from 'vue'
+
 import { setOptions } from './options'
 import type { Options } from './types'
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { debug } from '@vingy/vuebugger'
 import { ref } from 'vue'
+
 import DialogDemo from './DialogDemo.vue'
 import MyComponent from './MyComponent.vue'
 

@@ -1,4 +1,5 @@
 import type { Placement } from '@floating-ui/vue'
+
 import { getOption } from './options'
 import {
   getContent,

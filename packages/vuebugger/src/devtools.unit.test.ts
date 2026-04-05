@@ -1,5 +1,6 @@
 import { beforeEach, expect, test, vi } from 'vitest'
 import { computed, ref } from 'vue'
+
 import { INSPECTOR_ID } from './constants'
 import {
   handleEditInspectorState,
