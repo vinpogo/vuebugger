@@ -88,14 +88,34 @@ export const debug = <T extends Record<string, any>>(
         { immediate: true, deep: true },
       )
     } else {
+      let stateScope:
+        | ReturnType<typeof effectScope>
+        | undefined
+
       watch(
-        [() => toValue(options.enable), () => state],
-        ([isActive]) => {
-          if (isActive) upsert(entry)
-          else remove(entry)
+        () => toValue(options.enable),
+        (isActive) => {
+          if (isActive) {
+            stateScope = effectScope()
+            stateScope.run(() => {
+              watch(
+                () => state,
+                (value) => {
+                  upsert({ ...entry, debugState: value })
+                },
+                { immediate: true, deep: true },
+              )
+            })
+          } else {
+            stateScope?.stop()
+            stateScope = undefined
+            remove(entry)
+          }
         },
-        { immediate: true, deep: true },
+        { immediate: true },
       )
+
+      onScopeDispose(() => stateScope?.stop())
     }
   })
 
