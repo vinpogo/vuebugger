@@ -5,8 +5,9 @@ Vue devtools provide an easy way to inspect component state. But when having som
 ## Features
 
 - Debug composables and reactive state easily
-- Tree-shakable with zero runtime overhead
+- Tree-shakable with zero runtime overhead in production
 - Simple API: just call `debug(name, state)`
+- Opt-in production mode via `__ENABLE_VUEBUGGER__`
 
 ## Quick start
 
@@ -45,4 +46,26 @@ export const useFoo = (initial: number) => {
 
 See the demo app in [demo/](../../demo/).
 
-> **Note:** This plugin is tree-shakable and has zero runtime overhead when `debug()` calls are not used.
+## Production usage
+
+By default, Vuebugger is only active when `import.meta.env.DEV` is `true`, so it is automatically disabled and tree-shaken away in production builds with zero runtime overhead.
+
+If you need Vuebugger active in a production build (e.g. for staging environments or opt-in debugging), set `__ENABLE_VUEBUGGER__` in your `vite.config.ts`:
+
+```ts
+export default defineConfig({
+  define: {
+    __ENABLE_VUEBUGGER__: true,
+  },
+})
+```
+
+Setting it to `false` explicitly disables Vuebugger even in development:
+
+```ts
+define: {
+  __ENABLE_VUEBUGGER__: false,
+}
+```
+
+When `__ENABLE_VUEBUGGER__` is not defined at all, the original behaviour is preserved — active in dev, inactive in production.
