@@ -36,4 +36,4 @@ jobs:
           publish: pnpm changeset:publish
           version: pnpm changeset:version
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESETS_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
