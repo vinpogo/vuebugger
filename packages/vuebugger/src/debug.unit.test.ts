@@ -1,7 +1,11 @@
 import { expect, test, vi } from 'vitest'
 import { effectScope, nextTick, ref } from 'vue'
 
-import { debug, setUidGenerator } from './debug'
+import {
+  debug,
+  moduleScopes,
+  setUidGenerator,
+} from './debug'
 import { byGroupId, byUid } from './registry'
 
 // ---- helpers ----------------------------------------------------------------
@@ -17,6 +21,7 @@ const setup = () => {
 const teardown = () => {
   byUid.clear()
   byGroupId.clear()
+  moduleScopes.clear()
 }
 
 // ---- debug() without options ------------------------------------------------
@@ -338,6 +343,47 @@ test('enable boolean false — never registers', async () => {
   expect(byUid.size).toBe(0)
 
   scope.stop()
+  teardown()
+})
+
+// ---- module-level / HMR -----------------------------------------------------
+
+test('HMR: re-executing debug outside a scope with same groupId stops old scope and keeps only one entry', async () => {
+  setup()
+  const state = { count: 1 }
+
+  // First "module execution"
+  debug('myStore', state)
+  await nextTick()
+  expect(byUid.size).toBe(1)
+  expect(moduleScopes.size).toBe(1)
+  const firstScope = moduleScopes.get('myStore')
+
+  // Simulate HMR: module re-executes, same groupId
+  setup()
+  const state2 = { count: 2 }
+  debug('myStore', state2)
+  await nextTick()
+
+  // Old scope should be stopped, only one entry remains
+  expect(firstScope?.active).toBe(false)
+  expect(byUid.size).toBe(1)
+  expect(moduleScopes.size).toBe(1)
+  expect(moduleScopes.get('myStore')).not.toBe(firstScope)
+
+  teardown()
+})
+
+test('module-level: registers entry outside a component scope', async () => {
+  setup()
+  const state = { count: 1 }
+
+  debug('myStore', state)
+  await nextTick()
+
+  expect(byUid.size).toBe(1)
+  expect(moduleScopes.has('myStore')).toBe(true)
+
   teardown()
 })
 
