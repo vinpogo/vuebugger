@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "test": "pnpm vitest",
-    "build": "pnpm -r build",
+    "build": "pnpm -r --sort build",
     "dev": "pnpm -r --parallel --stream dev",
     "demo": "pnpm --filter demo run dev",
     "typecheck": "tsc --noEmit",
@@ -26,12 +26,14 @@
     "@changesets/cli": "catalog:",
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
     "@vitest/browser-playwright": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "playwright": "catalog:",
-    "tsdown": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
     "vitest": "catalog:"
   },
   "packageManager": "pnpm@10.30.1+sha512.3590e550d5384caa39bd5c7c739f72270234b2f6059e13018f975c313b1eb9fefcc09714048765d4d9efe961382c312e624572c0420762bdc5d5940cdf9be73a"
