@@ -8,6 +8,7 @@ Vue devtools provide an easy way to inspect component state. But when having som
 - Tree-shakable with zero runtime overhead in production
 - Simple API: just call `debug(name, state)`
 - Opt-in production mode via `__ENABLE_VUEBUGGER__`
+- Conditionally register state with `debug(name, state, { enable })`
 
 ## Quick start
 
@@ -24,6 +25,8 @@ createApp(App).use(Vuebugger)
 ```
 
 ## Usage
+
+### Basic usage
 
 `debug()` registers values from composables so they show up in Vue Devtools.
 
@@ -43,6 +46,14 @@ export const useFoo = (initial: number) => {
   return { value, inc, dec }
 }
 ```
+
+### Options
+
+`debug()` accepts an optional third argument:
+
+| Option   | Type                        | Default     | Description                                                                                                                      |
+| -------- | --------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `enable` | `MaybeRefOrGetter<boolean>` | `undefined` | Only register state when truthy. When reactive, the entry is added and removed from devtools automatically as the value changes. |
 
 See the demo app in [demo/](../../demo/).
 
