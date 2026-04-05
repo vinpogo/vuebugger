@@ -5,13 +5,17 @@
   "type": "module",
   "exports": {
     "./types": {
-      "types": "./dist/types.d.mts",
-      "import": "./dist/types.mjs"
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js"
     }
   },
   "scripts": {
-    "build": "tsdown"
+    "build": "vite build"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitejs/plugin-vue": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:"
+  }
 }
