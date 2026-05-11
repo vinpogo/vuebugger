@@ -18,7 +18,7 @@ catalogs:
     oxlint: ^1.63.0
     pinia: ^3.0.4
     playwright: ^1.59.1
-    typescript: ^5.9.3
+    typescript: ^6.0.3
     unplugin-dts: ^1.0.0
     vite: ^8.0.12
     vite-plugin-vue-devtools: ^8.1.2
