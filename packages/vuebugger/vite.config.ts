@@ -13,6 +13,7 @@ export default defineConfig({
     dts({
       processor: 'vue',
       tsconfigPath: './tsconfig.json',
+      entryRoot: 'src',
       include: ['src'],
       exclude: ['src/**/*.test.ts'],
     }),
