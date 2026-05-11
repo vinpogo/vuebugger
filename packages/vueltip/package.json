@@ -40,8 +40,9 @@
   "devDependencies": {
     "@vingy/shared": "workspace:^",
     "@vitejs/plugin-vue": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-dts": "catalog:"
+    "@vue/language-core": "catalog:",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:"
   },
   "peerDependencies": {
     "@floating-ui/vue": "catalog:",
