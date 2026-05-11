@@ -15,7 +15,8 @@
   "dependencies": {},
   "devDependencies": {
     "@vitejs/plugin-vue": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-dts": "catalog:"
+    "@vue/language-core": "catalog:",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:"
   }
 }

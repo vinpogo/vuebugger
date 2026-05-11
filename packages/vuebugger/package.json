@@ -40,8 +40,9 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "catalog:",
     "@vue/devtools-api": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-dts": "catalog:"
+    "@vue/language-core": "catalog:",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:"
   },
   "peerDependencies": {
     "vue": "catalog:"
